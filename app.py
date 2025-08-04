@@ -1,6 +1,7 @@
 import io
 import os
 import psycopg2
+from psycopg2 import pool
 import pandas as pd
 import streamlit as st
 from datetime import date, timedelta, datetime
@@ -8,6 +9,7 @@ from zoneinfo import ZoneInfo
 from matplotlib import pyplot as plt
 from openpyxl import Workbook
 from dotenv import load_dotenv
+
 
 # ---- Load environment variables ----
 load_dotenv()
@@ -17,8 +19,11 @@ DB_USER = os.getenv("DB_USER")
 DB_PASS = os.getenv("DB_PASS")
 DB_PORT = os.getenv("DB_PORT")
 
-def get_connection():
-    return psycopg2.connect(
+
+@st.cache_resource
+def get_pool():
+    return psycopg2.pool.SimpleConnectionPool(
+        1, 10,
         host=DB_HOST,
         database=DB_NAME,
         user=DB_USER,
@@ -27,10 +32,25 @@ def get_connection():
         sslmode="require"
     )
 
+pool = get_pool()
+
+import atexit
+
+@atexit.register
+def close_pool():
+    if pool:
+        pool.closeall()
+
+def get_connection():
+    return pool.getconn()
+
+def release_connection(conn):
+    pool.putconn(conn)
+
 # ---- Initialize database tables ----
 def init_db():
-    with get_connection() as conn:
-        with conn.cursor() as c:
+    conn = get_connection()
+    with conn.cursor() as c:
             c.execute('''
             CREATE TABLE IF NOT EXISTS boarders (
                 id SERIAL PRIMARY KEY,
@@ -59,13 +79,14 @@ def init_db():
             )
             ''')
             conn.commit()
+            release_connection(conn)
 
 init_db()
 
 # ---------------------- UTILS ----------------------
 def register_user(name, room, username, pin):
-    with get_connection() as conn:
-        with conn.cursor() as c:
+    conn = get_connection()
+    with conn.cursor() as c:
             c.execute("SELECT COUNT(*) FROM boarders WHERE room_no=%s", (room,))
             if c.fetchone()[0] >= 2:
                 st.error("This room already has 2 registered boarders.")
@@ -77,26 +98,33 @@ def register_user(name, room, username, pin):
             else:
                 c.execute("INSERT INTO boarders (name, room_no, username, pin) VALUES (%s,%s,%s,%s)",
                           (name, room, username, pin))
+                
                 conn.commit()
+                release_connection(conn)
                 st.success("Registered successfully!")
 
 def update_convenor_status(boarder_id, status):
-    with get_connection() as conn:
-        with conn.cursor() as c:
+    conn = get_connection()
+    with conn.cursor() as c:
             c.execute("UPDATE boarders SET is_convenor=%s WHERE id=%s", (status, boarder_id))
             conn.commit()
+            release_connection(conn)
 
 def get_all_boarders():
-    with get_connection() as conn:
-        query = "SELECT id, name, room_no, username, is_convenor FROM boarders"
-        return pd.read_sql_query(query,conn)
+    conn = get_connection()
+    df = pd.read_sql_query("SELECT id, name, room_no, username, is_convenor FROM boarders", conn)
+    release_connection(conn)
+    return df
     
 
 def get_users_in_room(room):
-    with get_connection() as conn:
-        with conn.cursor() as c:
-            c.execute("SELECT id, name, pin FROM boarders WHERE room_no=%s", (room,))
-            return c.fetchall()
+    conn = get_connection()
+    with conn.cursor() as c:
+        c.execute("SELECT id, name, pin FROM boarders WHERE room_no=%s", (room,))
+        rows = c.fetchall()
+
+    release_connection(conn)
+    return rows
         
 
 def get_booking_date():
@@ -113,14 +141,15 @@ def get_booking_date():
 
 def get_tomorrow_meals():
     meal_date = get_booking_date() or date.today()
-    with get_connection() as conn:
-        df = pd.read_sql_query("""
-            SELECT b.name, b.room_no, m.lunch, m.dinner, m.dinner_choice
-            FROM meals m
-            JOIN boarders b ON b.id = m.user_id
-            WHERE m.meal_date = %s
-            ORDER BY b.room_no
-        """, conn, params=(str(meal_date),))
+    conn = get_connection()
+    df = pd.read_sql_query("""
+        SELECT b.name, b.room_no, m.lunch, m.dinner, m.dinner_choice
+        FROM meals m
+        JOIN boarders b ON b.id = m.user_id
+        WHERE m.meal_date = %s
+        ORDER BY b.room_no
+    """, conn, params=(str(meal_date),))
+    release_connection(conn)
 
     df["lunch"] = pd.to_numeric(df["lunch"], errors="coerce").fillna(0).astype(int)
     df["dinner"] = pd.to_numeric(df["dinner"], errors="coerce").fillna(0).astype(int)
@@ -151,8 +180,8 @@ def book_meal(user_id, lunch, dinner, dinner_choice):
     lunch_val = 1 if lunch else 0
     dinner_val = 1 if dinner else 0
 
-    with get_connection() as conn:
-        with conn.cursor() as c:
+    conn = get_connection()
+    with conn.cursor() as c:
             c.execute("SELECT * FROM meals WHERE user_id=%s AND meal_date=%s", (user_id, str(meal_date)))
             if c.fetchone():
                 c.execute(
@@ -168,13 +197,14 @@ def book_meal(user_id, lunch, dinner, dinner_choice):
                     (user_id, str(meal_date), lunch_val, dinner_val, dinner_choice)
                 )
             conn.commit()
+            release_connection(conn)
     st.success("Meal booked successfully!")
 
 def validate_convenor(username, room, pin):
     if username == "sahid" and room == "47" and pin == "1202":
         return "superadmin"
-    with get_connection() as conn:
-        with conn.cursor() as c:
+    conn = get_connection()
+    with conn.cursor() as c:
             c.execute("SELECT is_convenor FROM boarders WHERE username=%s AND room_no=%s AND pin=%s",
                       (username, room, pin))
             row = c.fetchone()
@@ -188,18 +218,19 @@ def to_excel(df):
 
 def set_dinner_option(option):
     meal_date = get_booking_date()
-    with get_connection() as conn:
-        with conn.cursor() as c:
+    conn = get_connection()
+    with conn.cursor() as c:
             c.execute('''INSERT INTO dinner_option (meal_date, option)
                          VALUES (%s,%s)
                          ON CONFLICT (meal_date) DO UPDATE SET option = EXCLUDED.option''',
                       (str(meal_date), option))
             conn.commit()
+            release_connection(conn)
 
 def check_dinner_option():
     meal_date = get_booking_date()
-    with get_connection() as conn:
-        with conn.cursor() as c:
+    conn = get_connection()
+    with conn.cursor() as c:
             c.execute("SELECT option FROM dinner_option WHERE meal_date=%s", (str(meal_date),))
             row = c.fetchone()
             return row[0] if row else "Chicken"
