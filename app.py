@@ -121,7 +121,7 @@ def get_tomorrow_meals():
             WHERE m.meal_date = %s
             ORDER BY b.room_no
         """, conn, params=(str(meal_date),))
-        
+
     df["lunch"] = pd.to_numeric(df["lunch"], errors="coerce").fillna(0).astype(int)
     df["dinner"] = pd.to_numeric(df["dinner"], errors="coerce").fillna(0).astype(int)
     totals_df = pd.DataFrame({
@@ -191,7 +191,7 @@ def check_dinner_option():
     meal_date = get_booking_date()
     with get_connection() as conn:
         with conn.cursor() as c:
-            c.execute("SELECT option FROM dinner_option WHERE meal_date=%s", (meal_date,))
+            c.execute("SELECT option FROM dinner_option WHERE meal_date=%s", str(meal_date,))
             row = c.fetchone()
             return row[0] if row else "Chicken"
 
