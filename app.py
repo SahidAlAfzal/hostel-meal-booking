@@ -147,17 +147,26 @@ def book_meal(user_id, lunch, dinner, dinner_choice):
     if meal_date is None:
         st.error("Booking not allowed at this time!")
         return
+    # Convert booleans to integers (True → 1, False → 0)
+    lunch_val = 1 if lunch else 0
+    dinner_val = 1 if dinner else 0
+
     with get_connection() as conn:
         with conn.cursor() as c:
             c.execute("SELECT * FROM meals WHERE user_id=%s AND meal_date=%s", (user_id, str(meal_date)))
             if c.fetchone():
-                c.execute("""UPDATE meals SET lunch=%s, dinner=%s, dinner_choice=%s
-                             WHERE user_id=%s AND meal_date=%s""",
-                          (lunch, dinner, dinner_choice, user_id, str(meal_date)))
+                c.execute(
+                    """UPDATE meals 
+                       SET lunch=%s, dinner=%s, dinner_choice=%s
+                       WHERE user_id=%s AND meal_date=%s""",
+                    (lunch_val, dinner_val, dinner_choice, user_id, str(meal_date))
+                )
             else:
-                c.execute("""INSERT INTO meals (user_id, meal_date, lunch, dinner, dinner_choice)
-                             VALUES (%s,%s,%s,%s,%s)""",
-                          (user_id, str(meal_date), lunch, dinner, dinner_choice))
+                c.execute(
+                    """INSERT INTO meals (user_id, meal_date, lunch, dinner, dinner_choice)
+                       VALUES (%s, %s, %s, %s, %s)""",
+                    (user_id, str(meal_date), lunch_val, dinner_val, dinner_choice)
+                )
             conn.commit()
     st.success("Meal booked successfully!")
 
