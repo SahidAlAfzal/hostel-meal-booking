@@ -1,5 +1,6 @@
 streamlit
 pandas
-openpyxl
-watchdog
 psycopg2-binary
+python-dotenv
+matplotlib
+openpyxl
