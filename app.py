@@ -191,7 +191,7 @@ def check_dinner_option():
     meal_date = get_booking_date()
     with get_connection() as conn:
         with conn.cursor() as c:
-            c.execute("SELECT option FROM dinner_option WHERE meal_date=%s", str(meal_date,))
+            c.execute("SELECT option FROM dinner_option WHERE meal_date=%s", (str(meal_date),))
             row = c.fetchone()
             return row[0] if row else "Chicken"
 
