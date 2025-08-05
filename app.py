@@ -69,6 +69,7 @@ def execute_query(query, params=None, fetch=None):
             elif fetch == 'all':
                 return c.fetchall()
             conn.commit() # Commit changes for INSERT, UPDATE, DELETE
+            return c.rowcount
     except Exception as e:
         st.error(f"Database Error: {e}")
         if conn:
@@ -297,11 +298,12 @@ def get_notices():
     return execute_query(query, fetch='all') or []
 
 
+
 # ---------------------- STREAMLIT UI ----------------------
 st.set_page_config(page_title="Hostel Meal System", layout="wide")
 st.title("Hostel Meal Booking System")
 
-menu = st.sidebar.selectbox("Menu", ["Home", "Register", "Book Meal", "Admin Panel"])
+menu = st.sidebar.selectbox("Menu", ["Home", "Register", "Book Meal", "Admin Panel","Reset PIN"])
 
 #--------------------------HOME PAGE---------------------------
 if menu == "Home":
@@ -489,3 +491,42 @@ elif menu == "Admin Panel":
                 if post_button and message:
                     # FIX: Use the username stored in session state
                     post_notice(message, st.session_state.admin_username)
+
+#-----------------------Forgot PIN--------------------------
+elif menu == "Reset PIN":
+    st.header("Reset Your PIN")
+    with st.form("Reset the PIN"):
+        username = st.text_input("Username")
+        room = st.text_input("Room no.")
+        new_pin = st.text_input("Enter Your New PIN",type="password",max_chars=4)
+        reset_button = st.form_submit_button("Reset PIN")
+
+        if reset_button:
+            if len(new_pin) != 4 or not new_pin.isdigit():
+                st.warning("PIN must be exactly 4 digits.")
+
+            else:
+                if not username or not room or not new_pin:
+                    st.warning("Please fill out all the required fields!")
+                
+                query = """
+                    UPDATE boarders
+                    SET pin=%s
+                    WHERE username=%s AND room_no=%s
+                """
+                rows = execute_query(query,(new_pin,username,room)) #Incase of UPDATE-PostgreSQL executes the query and internally counts how many rows were affected.
+                if rows == 0:
+                    st.session_state.reset_result = ("error","No matching boarder found!")
+                else:
+                    st.session_state.reset_result = ("success","PIN Updated Successfully!")
+                st.rerun()
+        #------After Rerun------
+        if "reset_result" in st.session_state:
+            info_type,info_text = st.session_state.reset_result
+
+            if info_type == "error":
+                st.error(info_text)
+            else:
+                st.success(info_text)
+            del st.session_state.reset_result
+                
