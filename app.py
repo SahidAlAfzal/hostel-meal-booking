@@ -318,6 +318,9 @@ if menu == "Home":
         else:
             st.info("No recent notices.")
 
+
+
+    st.divider()
     st.info("Meal booking is open from **6:00 AM to 4:00 PM** for the current day, and **8:00 PM to 1:00 AM** for the next day.")
 
     st.subheader("Current Convenors")
