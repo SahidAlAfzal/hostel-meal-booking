@@ -51,35 +51,44 @@ def release_connection(conn):
 def init_db():
     conn = get_connection()
     with conn.cursor() as c:
-            c.execute('''
+        c.execute('''
             CREATE TABLE IF NOT EXISTS boarders (
-                id SERIAL PRIMARY KEY,
-                name TEXT NOT NULL,
-                room_no TEXT NOT NULL,
-                username TEXT NOT NULL,
-                pin TEXT NOT NULL,
-                is_convenor INTEGER DEFAULT 0
-            )
-            ''')
-            c.execute('''
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            room_no TEXT NOT NULL,
+            username TEXT UNIQUE NOT NULL,
+            pin TEXT NOT NULL,
+            is_convenor INTEGER DEFAULT 0
+        )
+        ''')
+        c.execute('''
             CREATE TABLE IF NOT EXISTS meals (
-                id SERIAL PRIMARY KEY,
-                user_id INTEGER REFERENCES boarders(id),
-                meal_date TEXT,
-                lunch INTEGER DEFAULT 0,
-                dinner INTEGER DEFAULT 0,
-                dinner_choice TEXT
-            )
-            ''')
-            c.execute('''
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES boarders(id),
+            meal_date TEXT,
+            lunch INTEGER DEFAULT 0,
+            dinner INTEGER DEFAULT 0,
+            dinner_choice TEXT
+        )
+        ''')
+        c.execute('''
             CREATE TABLE IF NOT EXISTS dinner_option (
-                id SERIAL PRIMARY KEY,
-                meal_date TEXT UNIQUE,
-                option TEXT
-            )
-            ''')
-            conn.commit()
-            release_connection(conn)
+            id SERIAL PRIMARY KEY,
+            meal_date TEXT UNIQUE,
+            option TEXT
+        )
+        ''')
+        c.execute('''
+            CREATE TABLE IF NOT EXISTS notices (
+            id SERIAL PRIMARY KEY,
+            current_date DATE DEFAULT CURRENT_DATE,
+            notice TEXT NOT NULL,
+            posted_by TEXT REFERENCES boarders(username) ON DELETE CASCADE        
+        )
+        ''')
+
+        conn.commit()
+        release_connection(conn)
 
 init_db()
 
@@ -161,6 +170,7 @@ def get_tomorrow_meals():
     })
     return pd.concat([df, totals_df], ignore_index=True)
 
+
 def total_grocery(df):
     return pd.DataFrame({
         "item": ["Egg", "Fish", "Chicken"],
@@ -234,6 +244,33 @@ def check_dinner_option():
             c.execute("SELECT option FROM dinner_option WHERE meal_date=%s", (str(meal_date),))
             row = c.fetchone()
             return row[0] if row else "Chicken"
+    
+def post_notices(message,username):
+    conn = get_connection()
+    with conn.cursor() as c:
+        c.execute("INSERT INTO notices (notice,posted_by) VALUES (%s,%s)",(message,username))
+        conn.commit()
+        release_connection(conn)
+    st.success("Notice has been posted successfully!")
+    return
+
+def get_notices():
+    conn = get_connection()
+    with conn.cursor() as c:
+        c.execute(("""
+            SELECT n.notice, b.name, n.current_date
+            FROM notices n
+            JOIN boarders b ON n.posted_by = b.username
+            WHERE n.current_date >= CURRENT_DATE - INTERVAL '1 day'
+            ORDER BY n.current_date DESC, n.id DESC
+            LIMIT 5;
+        """))
+        rows = c.fetchall()
+    release_connection(conn)
+    return rows
+
+    
+    
 
 # ---------------------- STREAMLIT UI ----------------------
 st.title("Hostel Meal Booking System")
@@ -242,12 +279,74 @@ menu = st.sidebar.selectbox("Menu", ["Home", "Register", "Book Meal", "Admin Pan
 #--------------------------HOME PAGE---------------------------
 if menu == "Home":
     st.header("Old PG Boys' Hostel")
+    
+    # --- Notice Board ---
     st.subheader("Notice Board")
+    notices = get_notices()
+
+    chalkboard_html = """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+    .notice-board {
+        background-image: url('https://images.unsplash.com/photo-1711062717319-393e424a3538?auto=format&fit=crop&w=1200');
+        background-size: cover;
+        background-position: center;
+        padding: 40px;
+        border-radius: 12px;
+        color: #f0f0f0;
+        font-family: 'Shadows Into Light', cursive;
+        font-size: 22px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.7);
+        max-width: 650px;
+        margin: auto;
+    }
+    .notice-board ul {
+        list-style-type: none;
+        padding-left: 10px;
+    }
+    .notice-board li {
+        margin-bottom: 15px;
+    }
+    .notice-board li::before {
+        content: "• ";
+        color: #f0f0f0;
+        font-size: 26px;
+        vertical-align: middle;
+    }
+    .notice-author {
+        font-size: 16px;
+        color: #ddd;
+    }
+    </style>
+
+    <div class="notice-board">
+        <h3 style="text-align:center;">Notice Board</h3>
+        <ul>
+    """
+
+    if notices:
+        for text, author, n_date in notices:
+            chalkboard_html += f"""
+            <li>
+                <b>{text}</b><br>
+                <span class="notice-author">— {author} ({n_date})</span>
+            </li>
+            """
+    else:
+        chalkboard_html += "<li><b>No recent notices.</b></li>"
+
+    chalkboard_html += "</ul></div>"
+
+    st.markdown(chalkboard_html, unsafe_allow_html=True)
+
+    # --- Info Section ---
     st.info("Meal booking closes daily at 4 PM. Emergency meal booking is allowed only by convenors.")
+
+    # --- Current Convenors ---
     st.subheader("Current Convenors")
     convenors_df = get_all_boarders()
     convenors_df = convenors_df[convenors_df['is_convenor'] == 1]
-    st.dataframe(convenors_df[['name', 'room_no']])
+    st.dataframe(convenors_df[['name', 'room_no', 'username']])
 
 #---------------------------REGISTER------------------------------
 elif menu == "Register":
@@ -304,6 +403,7 @@ elif menu == "Admin Panel":
 
     if "admin_role" not in st.session_state:
         st.session_state.admin_role = None
+
     if st.session_state.admin_role is None:
         username = st.text_input("Admin Username")
         room = st.text_input("Room no.")
@@ -358,3 +458,10 @@ elif menu == "Admin Panel":
         if st.button("Set Dinner Option"):
             set_dinner_option(allowed_option)
             st.success(f"Dinner option is successfully added for {meal_date} to Egg + {allowed_option}")
+
+
+        #---------------Post Notice-------------------
+        message = st.text_area("Enter Notice",placeholder="Example: My convenorship will be over from tomorrow!",height=140)
+        if st.button("*Post*"):
+            post_notices(message,username)
+    
