@@ -48,7 +48,8 @@ def release_connection(conn):
     pool.putconn(conn)
 
 # ---- Initialize database tables ----
-def init_db():
+@st.cache_resource
+def initialize_tables():
     conn = get_connection()
     with conn.cursor() as c:
         c.execute('''
@@ -88,11 +89,11 @@ def init_db():
             REFERENCES boarders(username) ON DELETE CASCADE
         )
         ''')
-
         conn.commit()
-        release_connection(conn)
+    release_connection(conn)
 
-init_db()
+# Call only once
+initialize_tables()
 
 # ---------------------- UTILS ----------------------
 def register_user(name, room, username, pin):
