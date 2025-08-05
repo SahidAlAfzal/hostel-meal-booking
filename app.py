@@ -310,29 +310,13 @@ if menu == "Home":
     st.subheader("Notice Board")
     notices = get_notices()
 
-    st.markdown("""
-    <style>
-    .notice-container { background-color: #f0f2f6; border-left: 5px solid #1c8adb; padding: 20px; border-radius: 8px; margin: 20px auto; max-width: 700px; }
-    .notice-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0; }
-    .notice-item:last-child { border-bottom: none; margin-bottom: 0; }
-    .notice-text { font-size: 1.1em; font-weight: 500; color: #333; }
-    .notice-author { font-size: 0.9em; color: #555; text-align: right; }
-    </style>
-    """, unsafe_allow_html=True)
-
     with st.container():
-        st.markdown('<div class="notice-container">', unsafe_allow_html=True)
         if notices:
             for text, author, n_date in notices:
-                st.markdown(f"""
-                <div class="notice-item">
-                    <div class="notice-text">"{text}"</div>
-                    <div class="notice-author">— {author} on {n_date.strftime('%B %d, %Y')}</div>
-                </div>
-                """, unsafe_allow_html=True)
+                st.info(f'"{text}"')
+                st.caption(f"— {author} on {n_date.strftime('%B %d, %Y')}")
         else:
             st.info("No recent notices.")
-        st.markdown('</div>', unsafe_allow_html=True)
 
     st.info("Meal booking is open from **6:00 AM to 4:00 PM** for the current day, and **8:00 PM to 1:00 AM** for the next day.")
 
