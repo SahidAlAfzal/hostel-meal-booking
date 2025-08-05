@@ -83,7 +83,9 @@ def init_db():
             id SERIAL PRIMARY KEY,
             current_date DATE DEFAULT CURRENT_DATE,
             notice TEXT NOT NULL,
-            posted_by TEXT REFERENCES boarders(username) ON DELETE CASCADE        
+            posted_by TEXT NOT NULL,
+            CONSTRAINT fk_username FOREIGN KEY (posted_by)
+            REFERENCES boarders(username) ON DELETE CASCADE
         )
         ''')
 
