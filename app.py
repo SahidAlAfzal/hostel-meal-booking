@@ -131,7 +131,7 @@ def initialize_tables():
     execute_query('''
         CREATE TABLE IF NOT EXISTS notices (
             id SERIAL PRIMARY KEY,
-            current_date DATE DEFAULT CURRENT_DATE,
+            notice_date DATE DEFAULT CURRENT_DATE,
             notice TEXT NOT NULL,
             posted_by TEXT NOT NULL REFERENCES boarders(username) ON DELETE CASCADE
         )
@@ -287,11 +287,11 @@ def post_notice(message, username):
 def get_notices():
     """Retrieves the 5 most recent notices from the last day."""
     query = """
-        SELECT n.notice, b.name, n.current_date
+        SELECT n.notice, b.name, n.notice_date
         FROM notices n
         JOIN boarders b ON n.posted_by = b.username
-        WHERE n.current_date >= CURRENT_DATE - INTERVAL '1 day'
-        ORDER BY n.current_date DESC, n.id DESC
+        WHERE n.notice_date >= CURRENT_DATE - INTERVAL '1 day'
+        ORDER BY n.notice_date DESC, n.id DESC
         LIMIT 5;
     """
     return execute_query(query, fetch='all') or []
