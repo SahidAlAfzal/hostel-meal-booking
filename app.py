@@ -80,15 +80,13 @@ def initialize_tables():
         )
         ''')
         c.execute('''
-            CREATE TABLE IF NOT EXISTS notices (
-            id SERIAL PRIMARY KEY,
-            current_date DATE DEFAULT CURRENT_DATE,
-            notice TEXT NOT NULL,
-            posted_by TEXT NOT NULL,
-            CONSTRAINT fk_username FOREIGN KEY (posted_by)
-            REFERENCES boarders(username) ON DELETE CASCADE
-        )
-        ''')
+        CREATE TABLE IF NOT EXISTS notices (
+        id SERIAL PRIMARY KEY,
+        current_date DATE DEFAULT CURRENT_DATE,
+        notice TEXT NOT NULL,
+        posted_by TEXT NOT NULL REFERENCES boarders(username) ON DELETE CASCADE
+    )
+''')
         conn.commit()
     release_connection(conn)
 
