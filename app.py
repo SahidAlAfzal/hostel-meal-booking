@@ -444,7 +444,7 @@ elif menu == "Admin Panel":
         else:
             st.info("No boarders found in the database.")
 
-    if st.session_state.admin_role in ["convenor", "superadmin"]:
+    if st.session_state.admin_role == "convenor":
         st.subheader("Convenor Panel")
         
         view_date = get_booking_date() or (datetime.now(ZoneInfo("Asia/Kolkata"))).date()
