@@ -329,7 +329,7 @@ if menu == "Home":
     convenors_df = get_all_boarders()
     convenors_df = convenors_df[convenors_df['is_convenor'] == 1]
     if not convenors_df.empty:
-        st.dataframe(convenors_df[['name', 'room_no', 'username']], use_container_width=True)
+        st.dataframe(convenors_df[['name', 'room_no']], use_container_width=True)
     else:
         st.write("No convenors are currently assigned.")
 
