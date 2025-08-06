@@ -42,8 +42,37 @@ st.markdown("""
 .stAppHeader {
     opacity: 0 !important; /* or 1 for visible */
 }
+/* Success (green) */
+.stAlert[aria-label="success"] {
+    background-color: #4CAF50 !important;
+    opacity: 1 !important;
+    color: white !important;
+}
+
+/* Error (red) */
+.stAlert[aria-label="error"] {
+    background-color: #F44336 !important;
+    opacity: 1 !important;
+    color: white !important;
+}
+
+/* Warning (yellow) */
+.stAlert[aria-label="warning"] {
+    background-color: #FFC107 !important;
+    opacity: 1 !important;
+    color: black !important;
+}
+
+/* Info (blue) */
+.stAlert[aria-label="info"] {
+    background-color: #2196F3 !important;
+    opacity: 1 !important;
+    color: white !important;
+}
 </style>
 """, unsafe_allow_html=True)
+
+
 #-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
