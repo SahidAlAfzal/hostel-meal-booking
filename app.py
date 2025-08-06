@@ -13,11 +13,17 @@ from dotenv import load_dotenv
 #----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
 <style>
+/* Target only sidebar */
 section[data-testid="stSidebar"] {
-    background-image: url('https://i.imgur.com/2R7pYdG.png');
+    background-image: url('https://raw.githubusercontent.com/MCreator/Generator-Images/master/minecraft/creeper_face.png');
     background-repeat: repeat;
-    background-size: 64px 64px; /* pixelated look */
+    background-size: 64px 64px; /* pixelated tile */
     image-rendering: pixelated;
+}
+
+/* Keep main page default */
+.main .block-container {
+    background: white !important;
 }
 </style>
 """
