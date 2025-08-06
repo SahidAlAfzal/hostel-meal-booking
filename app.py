@@ -66,33 +66,25 @@ if "bg_image" in st.session_state:
 #------------------------INCREASING OPAQUE OF ALERT BOXES-------------------------
 st.markdown("""
 <style>
-/* Success Box */
-div.stAlert div.stSuccess {
-    background-color: rgba(46, 204, 113, 1) !important;
-    color: white !important;
-    font-weight: bold !important;
-}
-
-/* Error Box */
-div.stAlert div.stError {
-    background-color: rgba(231, 76, 60, 1) !important;
-    color: white !important;
-    font-weight: bold !important;
-}
-
-/* Warning Box */
-div.stAlert div.stWarning {
-    background-color: rgba(241, 196, 15, 1) !important;
-    color: black !important;
-    font-weight: bold !important;
-}
-
-/* Info Box */
-div.stAlert div.stInfo {
+/* 100% Opaque Info Box (Blue) */
+div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Info"]) {
     background-color: rgba(52, 152, 219, 1) !important;
     color: white !important;
     font-weight: bold !important;
+    border-color: rgba(52, 152, 219, 1) !important;
+    box-shadow: none !important;
 }
+
+/* Other alert styles here... */
+div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Success"]) {
+    background-color: rgba(46, 204, 113, 1) !important;
+    color: white !important;
+    font-weight: bold !important;
+    border-color: rgba(46, 204, 113, 1) !important;
+    box-shadow: none !important;
+}
+
+/* ... and so on for Warning and Error alerts */
 </style>
 """, unsafe_allow_html=True)
 #------------------------------------------------------------------------
