@@ -12,8 +12,53 @@ from dotenv import load_dotenv
 
 
 
-#----------CREEPER SIDEBAR DESIGN--------------
+#----------Main Page DESIGN--------------
+# ... (your existing imports and code) ...
 
+def set_background(image_url):
+    """
+    Sets the background image for the main page of the Streamlit app.
+    It uses a custom CSS style to apply the image and a semi-transparent
+    overlay to ensure text and UI elements remain visible.
+    """
+    page_bg_img = f'''
+    <style>
+    /* Target the main content area */
+    .main .block-container {{
+        background-image: url("{image_url}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        border-radius: 10px;
+        padding: 1rem;
+    }}
+
+    /* Add an overlay to ensure text is readable */
+    .main .block-container::before {{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.7); /* Adjust the transparency here */
+        z-index: -1;
+        border-radius: 10px;
+    }}
+
+    /* Make sure all text and elements have enough contrast */
+    .main .stMarkdown, .main .stButton, .main .stTextInput, .main .stSelectbox {{
+        color: black !important;
+        background-color: transparent !important;
+    }}
+    </style>
+    '''
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+
+# Now, call the function at the beginning of your script to set the background.
+# Make sure the path to your image is correct.
+set_background("./assets/your_image.jpg")
 #----------------------------------------------------------------------------------------------------------------------------#
 
 
