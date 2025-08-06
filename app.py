@@ -14,32 +14,35 @@ from dotenv import load_dotenv
 sidebar_style = """
 <style>
 [data-testid="stSidebar"] {
-    /* Pixelated green block background */
-    background: 
-        repeating-linear-gradient(90deg, #3aa635 0 16px, #4CAF50 16px 32px),
-        repeating-linear-gradient(0deg, #3aa635 0 16px, #4CAF50 16px 32px);
-    background-size: 32px 32px;
-    image-rendering: pixelated;
     position: relative;
+    background-color: #3aa635;
+    background-image:
+        linear-gradient(90deg, #4CAF50 50%, #3aa635 50%),
+        linear-gradient(#4CAF50 50%, #3aa635 50%);
+    background-size: 32px 32px;  /* pixel block size */
+    image-rendering: pixelated;
 }
 
-/* Creeper Face in Center */
+/* Creeper face centered */
 [data-testid="stSidebar"]::before {
     content: "";
     position: absolute;
-    top: 100px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 96px;
-    height: 96px;
+    transform: translate(-50%, -50%);
+    width: 128px;
+    height: 128px;
     background: #000;
     clip-path: polygon(
-        25% 0%, 35% 0%, 35% 25%, 25% 25%, 
-        65% 0%, 75% 0%, 75% 25%, 65% 25%, 
-        40% 40%, 60% 40%, 60% 100%, 40% 100%, 
-        40% 60%, 25% 60%, 25% 40%, 40% 40%
+        /* Eyes */
+        15% 15%, 30% 15%, 30% 30%, 15% 30%,
+        70% 15%, 85% 15%, 85% 30%, 70% 30%,
+        /* Mouth (top) */
+        35% 50%, 65% 50%, 65% 65%, 35% 65%,
+        /* Mouth (legs) */
+        35% 65%, 50% 65%, 50% 85%, 35% 85%,
+        50% 65%, 65% 65%, 65% 85%, 50% 85%
     );
-    opacity: 0.9;
 }
 </style>
 """
