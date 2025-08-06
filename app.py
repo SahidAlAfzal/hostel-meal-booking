@@ -45,17 +45,27 @@ st.markdown("""
 .stAppHeader {
     opacity: 0 !important;
 }
-
-/* Force all Streamlit alerts to be fully opaque but keep their color */
-.stAlert {
-    opacity: 1 !important;             /* Ensure the whole container is visible */
-    backdrop-filter: none !important;  /* Remove background blur */
+/* Remove transparency from all alert boxes using exact background */
+.stAlert > div:first-child {
+    background-color: rgba(255, 255, 255, 0) !important; /* wipe transparency layer */
+    box-shadow: none !important;
 }
 
-/* Streamlit puts background in an inner div – make it solid */
-.stAlert > div:first-child {
-    background-color: inherit !important; /* Use Streamlit's chosen color */
-    opacity: 1 !important;                /* Force full opacity */
+.stAlert[data-testid="stAlertSuccess"] > div:first-child {
+    background-color: #10cc52 !important;
+    color: white !important;
+}
+.stAlert[data-testid="stAlertError"] > div:first-child {
+    background-color: #f53d3d !important;
+    color: white !important;
+}
+.stAlert[data-testid="stAlertWarning"] > div:first-child {
+    background-color: #ffc53d !important;
+    color: black !important;
+}
+.stAlert[data-testid="stAlertInfo"] > div:first-child {
+    background-color: #4285f4 !important;
+    color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
