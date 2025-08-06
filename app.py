@@ -41,7 +41,7 @@ import streamlit as st
 from streamlit import config
 
 st.markdown("""
-/* Hide header if you still want it */
+<style>
 .stAppHeader {
     opacity: 0 !important;
 }
