@@ -36,6 +36,34 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# ---- Pick a random image from assets ----
+def pick_random_image(folder="assets"):
+    images = [os.path.join(folder, img) for img in os.listdir(folder)
+              if img.lower().endswith((".png", ".jpg"))]
+    return random.choice(images) if images else None
+
+# ---- Set main page background ----
+def set_main_background():
+    random_image = pick_random_image("assets")
+    if random_image:
+        image_base64 = get_base64_image(random_image)
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-image: url("data:image/jpeg;base64,{image_base64}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
+# ---- Call once at startup ----
+set_main_background()
 #---------------------------------------------------------------------------------
 
 
