@@ -39,34 +39,35 @@ def get_base64_image(image_path):
 #)
 st.markdown("""
 <style>
+/* Hides the Streamlit header */
 .stAppHeader {
-    opacity: 0 !important; /* or 1 for visible */
+    opacity: 0 !important;
 }
+
+/* --- The Fix is Here --- */
+/* Use 'background' instead of 'background-color' for more robust override */
+
 /* Success (green) */
 .stAlert[aria-label="success"] {
-    background-color: #4CAF50 !important;
-    opacity: 1 !important;
+    background: #4CAF50 !important; /* Changed from background-color */
     color: white !important;
 }
 
 /* Error (red) */
 .stAlert[aria-label="error"] {
-    background-color: #F44336 !important;
-    opacity: 1 !important;
+    background: #F44336 !important; /* Changed from background-color */
     color: white !important;
 }
 
 /* Warning (yellow) */
 .stAlert[aria-label="warning"] {
-    background-color: #FFC107 !important;
-    opacity: 1 !important;
+    background: #FFC107 !important; /* Changed from background-color */
     color: black !important;
 }
 
 /* Info (blue) */
 .stAlert[aria-label="info"] {
-    background-color: #2196F3 !important;
-    opacity: 1 !important;
+    background: #2196F3 !important; /* Changed from background-color */
     color: white !important;
 }
 </style>
