@@ -13,12 +13,11 @@ from dotenv import load_dotenv
 #----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
 <style>
-/* Force only the sidebar to use creeper tile */
+/* Base64 creeper pixel texture applied strictly to sidebar */
 [data-testid="stSidebar"] > div:first-child {
-    background-image: url('https://raw.githubusercontent.com/MCreator/Generator-Images/master/minecraft/creeper_face.png');
-    background-repeat: repeat;
-    background-size: 64px 64px;
-    image-rendering: pixelated;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAAAyUlEQVR42u3bMQ7CMAwFUEfGpWkFuXwBliKJyQfqL9RMMc2tj3h3lGvYfApYzVY+TjYASQHKhOE0+Wg5AAx4JJAAADuYvmdIAhFMxDC8z9iNngAX8DmjgA3scA3obdGExZ+noSJJcGEiWTKoWIuRO8JJCDQyAkBNPZZkScAQwrGKEiRZhxgQZnEdh6VStRBkyrXbO1mA+jUq1z67PoGpLtXpn4pyOkKHtytvLF0TF5dpOcft4gHcEH07FTgEPlYzA+fQEfCfwF8Hkjbxzz+T8lZnO0/N2IksuKnub7Gvh9URMQZQAAAABJRU5ErkJggg==') repeat !important;
+    background-size: 64px 64px !important;
+    image-rendering: pixelated !important;
 }
 </style>
 """
