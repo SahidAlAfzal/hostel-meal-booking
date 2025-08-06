@@ -38,14 +38,15 @@ def get_base64_image(image_path):
 #    unsafe_allow_html=True,
 #)
 import streamlit as st
+from streamlit import config
 
 st.markdown("""
 <style>
 .stAppHeader { opacity: 0 !important; }
-.stAlert[label="success"] { background-color: rgba(16, 204, 82, 1) !important;}
-.stAlert[label="error"] { background-color: rgba(245, 61, 61, 1) !important;}
-.stAlert[label="warning"] { background-color: rgba(255, 197, 61, 1) !important;}
-.stAlert[label="info"] { background-color: rgba(66, 133, 244, 1) !important;}
+.stAlert[aria-label="success"] { background-color: rgba(16, 204, 82, 1) !important;}
+.stAlert[aria-label="error"] { background-color: rgba(245, 61, 61, 1) !important;}
+.stAlert[aria-label="warning"] { background-color: rgba(255, 197, 61, 1) !important;}
+.stAlert[aria-label="info"] { background-color: rgba(66, 133, 244, 1) !important;}
 div[data-testid="stNotification"] > div { opacity: 1 !important; }
 </style>
 """, unsafe_allow_html=True)
