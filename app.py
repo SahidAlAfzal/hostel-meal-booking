@@ -433,10 +433,10 @@ elif menu == "Book Meal":
                     with st.form("booking_form"):
                         book_lunch = st.checkbox("Lunch", value=True)
                         book_dinner = st.checkbox("Dinner", value=True)
-                        
-                        dinner_option_for_day = get_dinner_option(meal_date)
-                        options = ["Egg", "Fish"] if dinner_option_for_day == "Fish" else ["Egg", "Chicken"]
-                        dinner_choice = st.radio("Dinner Choice", options)
+                        if book_dinner:
+                            dinner_option_for_day = get_dinner_option(meal_date)
+                            options = ["Egg", "Fish"] if dinner_option_for_day == "Fish" else ["Egg", "Chicken"]
+                            dinner_choice = st.radio("Dinner Choice", options)
                         
                         entered_pin = st.text_input("Enter your 4-digit PIN to confirm", type="password", max_chars=4)
                         
