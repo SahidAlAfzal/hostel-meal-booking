@@ -45,6 +45,13 @@ st.markdown("""
 .stAppHeader {
     opacity: 0 !important;
 }
+.stAlert {
+        opacity: 1 !important;
+        background-color: rgba(255, 255, 255, 1) !important;
+    }
+    div[data-testid="stNotification"] > div {
+        opacity: 1 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -582,6 +589,7 @@ elif menu == "Admin Panel":
                 if post_button and message:
                     # FIX: Use the username stored in session state
                     post_notice(message, st.session_state.admin_username)
+
 
 #-----------------------Forgot PIN--------------------------
 elif menu == "Reset PIN":
