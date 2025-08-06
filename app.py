@@ -13,74 +13,96 @@ from dotenv import load_dotenv
 #----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
 <style>
-/* Main sidebar styling */
+/* Main sidebar with Creeper green and pixel pattern */
 [data-testid="stSidebar"] {
-    background-color: #5BAB46; /* Minecraft creeper green */
-    border-right: 4px solid #3A7D2A; /* Darker green border */
+    background-color: #4CAF50; /* Minecraft Creeper green */
+    background-image: 
+        linear-gradient(#4CAF50 2px, transparent 2px),
+        linear-gradient(90deg, #4CAF50 2px, transparent 2px),
+        linear-gradient(#4CAF50 1px, transparent 1px),
+        linear-gradient(90deg, #4CAF50 1px, transparent 1px);
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+    border-right: 4px solid #388E3C; /* Darker green border */
+    position: relative;
+    overflow: hidden;
 }
 
-/* Sidebar header */
-[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > [style*="flex-direction: column"] > [data-testid="stVerticalBlock"]:first-child {
-    background-color: #000000;
-    padding: 1rem;
-    margin: -1rem -1rem 1rem -1rem;
-    border-bottom: 4px solid #3A7D2A;
-}
-
-/* Creeper face pattern using pseudo-elements */
-[data-testid="stSidebar"]:before {
+/* Creeper face pattern */
+[data-testid="stSidebar"]::before {
     content: "";
-    display: block;
     position: absolute;
-    top: 20%;
-    left: 25%;
-    width: 50px;
-    height: 50px;
-    background-color: #000000;
-}
-
-[data-testid="stSidebar"]:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 20%;
+    width: 200px;
+    height: 200px;
+    top: 50%;
     left: 50%;
-    width: 50px;
-    height: 50px;
-    background-color: #000000;
+    transform: translate(-50%, -50%);
+    background: 
+        /* Left eye */
+        linear-gradient(#000000, #000000) 25% 25% / 25% 25% no-repeat,
+        /* Right eye */
+        linear-gradient(#000000, #000000) 75% 25% / 25% 25% no-repeat,
+        /* Mouth top */
+        linear-gradient(#000000, #000000) 25% 50% / 50% 12.5% no-repeat,
+        /* Mouth left */
+        linear-gradient(#000000, #000000) 25% 62.5% / 12.5% 25% no-repeat,
+        /* Mouth right */
+        linear-gradient(#000000, #000000) 62.5% 62.5% / 12.5% 25% no-repeat;
+    opacity: 0.8;
+    z-index: 0;
 }
 
-/* Widget styling */
-[data-testid="stSidebar"] .stTextInput, 
-[data-testid="stSidebar"] .stNumberInput, 
-[data-testid="stSidebar"] .stSelectbox {
-    background-color: #3A7D2A;
-    border: 2px solid #000000;
-    border-radius: 0; /* Minecraft has no rounded corners */
-    color: white;
+/* Sidebar content container */
+[data-testid="stSidebar"] > div:first-child {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem;
+    position: relative;
+    z-index: 1;
 }
 
-/* Button styling */
-[data-testid="stSidebar"] .stButton>button {
-    background-color: #3A7D2A;
-    color: white;
-    border: 2px solid #000000;
-    border-radius: 0;
-    font-weight: bold;
-}
-
-[data-testid="stSidebar"] .stButton>button:hover {
-    background-color: #5BAB46;
-    color: white;
-    border: 2px solid #000000;
-}
-
-/* Text color */
-[data-testid="stSidebar"] p, 
-[data-testid="stSidebar"] .stMarkdown, 
+/* Text elements */
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] .stMarkdown,
 [data-testid="stSidebar"] label {
     color: white !important;
-    font-family: 'Minecraft', sans-serif;
+    font-family: 'Courier New', monospace;
+    text-shadow: 1px 1px 2px black;
+}
+
+/* Input widgets */
+[data-testid="stSidebar"] .stTextInput input,
+[data-testid="stSidebar"] .stNumberInput input,
+[data-testid="stSidebar"] .stSelectbox select {
+    background-color: #388E3C;
+    border: 2px solid black;
+    color: white;
+    border-radius: 0;
+}
+
+/* Buttons */
+[data-testid="stSidebar"] .stButton button {
+    background-color: #388E3C;
+    color: white;
+    border: 2px solid black;
+    border-radius: 0;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+[data-testid="stSidebar"] .stButton button:hover {
+    background-color: #2E7D32;
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 0 black;
+}
+
+/* Active elements */
+[data-testid="stSidebar"] .st-emotion-cache-13ln490 {
+    background-color: #4CAF50 !important;
+    color: black !important;
+    border: 1px solid black !important;
 }
 </style>
 """
