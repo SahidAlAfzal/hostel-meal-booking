@@ -16,7 +16,6 @@ from dotenv import load_dotenv
 import base64
 import random
 
-# --- Get base64 of image ---
 # Pick random image from assets/
 image_files = [f for f in os.listdir("assets") if f.lower().endswith((".jpg", ".png"))]
 random_image = random.choice(image_files)
@@ -25,25 +24,28 @@ with open(f"assets/{random_image}", "rb") as f:
 
 st.markdown(f"""
     <style>
-    /* Background only on main page */
+    /* Background only on main page (no sidebar) */
     .stApp {{
         background: url("data:image/jpeg;base64,{img_base64}") no-repeat center center fixed;
         background-size: cover;
     }}
 
-    /* Add translucent background for content readability */
-    .block-container {{
-        background: rgba(255, 255, 255, 0.85);
-        border-radius: 12px;
-        padding: 1rem;
-    }}
-
-    /* Sidebar unaffected */
+    /* Sidebar stays white and unaffected */
     [data-testid="stSidebar"] {{
         background: white !important;
     }}
+
+    /* Make content slightly readable but transparent (like glass effect) */
+    .block-container {{
+        background: rgba(255, 255, 255, 0.5);  /* lower opacity */
+        backdrop-filter: blur(4px);            /* glass effect */
+        border-radius: 8px;
+        padding: 1rem;
+    }}
     </style>
 """, unsafe_allow_html=True)
+
+
 #----------------------------------------------------------------------------------------------------------------------------#
 
 
