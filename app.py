@@ -41,17 +41,12 @@ import streamlit as st
 
 st.markdown("""
 <style>
-/* Hides the Streamlit header */
-.stAppHeader {
-    opacity: 0 !important;
-}
-.stAlert {
-        opacity: 1 !important;
-        background-color: rgba(255, 255, 255, 1) !important;
-    }
-    div[data-testid="stNotification"] > div {
-        opacity: 1 !important;
-    }
+.stAppHeader { opacity: 0 !important; }
+.stAlert[aria-label="success"] { background-color: #10cc52 !important; opacity: 1 !important; color: white !important; }
+.stAlert[aria-label="error"] { background-color: #f53d3d !important; opacity: 1 !important; color: white !important; }
+.stAlert[aria-label="warning"] { background-color: #ffc53d !important; opacity: 1 !important; color: black !important; }
+.stAlert[aria-label="info"] { background-color: #4285f4 !important; opacity: 1 !important; color: white !important; }
+div[data-testid="stNotification"] > div { opacity: 1 !important; }
 </style>
 """, unsafe_allow_html=True)
 
