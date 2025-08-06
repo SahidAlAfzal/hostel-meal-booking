@@ -14,10 +14,32 @@ from dotenv import load_dotenv
 sidebar_style = """
 <style>
 [data-testid="stSidebar"] {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABg3AmrAAABJElEQVR4nO2ZwQ2DMBBFXeNmbYk2wQAuw2Y0yTTzEDw7A8dgo+bX0LDVemYEXUkiPdnF9tpUChM2S1h8A6gB6kBWgD9QAt4DuAApjb6hL7QzXnZ7ELRTiB0mfwkGq2hEYaJAc0ZsEk8spHW7sb82UeUbtP0XjF9h3V2uMt0UkV+ywShz2CO6lJwHOSmgATcJ8FK0C7OofezDxyIwf6D6gmCPyvdK5AM1kM3q4gj7d5+Vbs6WJrxxysBebXHvZguzsKRBbfrb4KnIu4GMMIN0/xtynBQ6vwD5eJ9XkTGPcQbNEbESuVjdz7nFwNPnKfwybqjYIru3m8O8BXnAnSpf0Ul8AAAAASUVORK5CYII=');
-    background-size: 64px 64px;
-    background-repeat: repeat;
+    /* Pixelated green block background */
+    background: 
+        repeating-linear-gradient(90deg, #3aa635 0 16px, #4CAF50 16px 32px),
+        repeating-linear-gradient(0deg, #3aa635 0 16px, #4CAF50 16px 32px);
+    background-size: 32px 32px;
     image-rendering: pixelated;
+    position: relative;
+}
+
+/* Creeper Face in Center */
+[data-testid="stSidebar"]::before {
+    content: "";
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 96px;
+    height: 96px;
+    background: #000;
+    clip-path: polygon(
+        25% 0%, 35% 0%, 35% 25%, 25% 25%, 
+        65% 0%, 75% 0%, 75% 25%, 65% 25%, 
+        40% 40%, 60% 40%, 60% 100%, 40% 100%, 
+        40% 60%, 25% 60%, 25% 40%, 40% 40%
+    );
+    opacity: 0.9;
 }
 </style>
 """
