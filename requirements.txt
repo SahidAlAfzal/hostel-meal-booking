@@ -1,6 +1,6 @@
 streamlit
 psycopg2-binary
 pandas
-python-doten
+python-dotenv
 openpyxl
 matplotlib
