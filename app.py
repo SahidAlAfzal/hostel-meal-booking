@@ -43,11 +43,37 @@ from streamlit import config
 st.markdown("""
 <style>
 .stAppHeader { opacity: 0 !important; }
-.stAlert[aria-label="success"] { background-color: rgba(16, 204, 82, 1) !important;}
-.stAlert[aria-label="error"] { background-color: rgba(245, 61, 61, 1) !important;}
-.stAlert[aria-label="warning"] { background-color: rgba(255, 197, 61, 1) !important;}
-.stAlert[aria-label="info"] { background-color: rgba(66, 133, 244, 1) !important;}
-div[data-testid="stNotification"] > div { opacity: 1 !important; }
+/* Make all notification backgrounds fully opaque */
+div[data-testid="stNotification"] > div {
+    opacity: 1 !important;
+    background-color: rgba(var(--background-color-rgb), 1) !important;
+}
+
+/* Specific alert type customizations */
+div[data-testid="stNotification"] > div[aria-label="success"] {
+    background-color: rgba(16, 204, 82, 1) !important;
+    border-left: 4px solid rgba(5, 150, 52, 1) !important;
+}
+
+div[data-testid="stNotification"] > div[aria-label="error"] {
+    background-color: rgba(245, 61, 61, 1) !important;
+    border-left: 4px solid rgba(200, 30, 30, 1) !important;
+}
+
+div[data-testid="stNotification"] > div[aria-label="warning"] {
+    background-color: rgba(255, 197, 61, 1) !important;
+    border-left: 4px solid rgba(255, 171, 0, 1) !important;
+}
+
+div[data-testid="stNotification"] > div[aria-label="info"] {
+    background-color: rgba(66, 133, 244, 1) !important;
+    border-left: 4px solid rgba(26, 115, 232, 1) !important;
+}
+
+/* Fix text color contrast */
+div[data-testid="stNotification"] > div {
+    color: rgba(0, 0, 0, 0.87) !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
