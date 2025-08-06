@@ -45,33 +45,6 @@ st.markdown("""
 .stAppHeader {
     opacity: 0 !important;
 }
-
-/* --- The Correct Fix for Modern Streamlit Versions --- */
-/* Target the inner div that actually holds the background color */
-
-/* Success (green) */
-.stAlert[data-testid="stAlert"][aria-label="success"] > div:first-child {
-    background-color: #4CAF50 !important;
-    color: white !important;
-}
-
-/* Error (red) */
-.stAlert[data-testid="stAlert"][aria-label="error"] > div:first-child {
-    background-color: #F44336 !important;
-    color: white !important;
-}
-
-/* Warning (yellow) */
-.stAlert[data-testid="stAlert"][aria-label="warning"] > div:first-child {
-    background-color: #FFC107 !important;
-    color: black !important;
-}
-
-/* Info (blue) */
-.stAlert[data-testid="stAlert"][aria-label="info"] > div:first-child {
-    background-color: #2196F3 !important;
-    color: white !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
