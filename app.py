@@ -51,24 +51,28 @@ st.markdown("""
 .stAlert[aria-label="success"] {
     background: #4CAF50 !important; /* Changed from background-color */
     color: white !important;
+    opacity: 1 !important;
 }
 
 /* Error (red) */
 .stAlert[aria-label="error"] {
     background: #F44336 !important; /* Changed from background-color */
     color: white !important;
+    opacity: 1 !important;
 }
 
 /* Warning (yellow) */
 .stAlert[aria-label="warning"] {
     background: #FFC107 !important; /* Changed from background-color */
     color: black !important;
+    opacity: 1 !important;
 }
 
 /* Info (blue) */
 .stAlert[aria-label="info"] {
     background: #2196F3 !important; /* Changed from background-color */
     color: white !important;
+    opacity: 1 !important;
 }
 </style>
 """, unsafe_allow_html=True)
