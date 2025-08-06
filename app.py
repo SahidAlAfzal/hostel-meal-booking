@@ -13,68 +13,37 @@ from dotenv import load_dotenv
 #----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
 <style>
+/* Sidebar background pixelated green blocks */
 [data-testid="stSidebar"] {
-    position: relative;
-    background-color: #3aa635; /* Darker green for base */
+    background-color: #3aa635;
     background-image:
-        linear-gradient(90deg, #4CAF50 50%, #3aa635 50%), /* Vertical stripes */
-        linear-gradient(#4CAF50 50%, #3aa635 50%); /* Horizontal stripes */
-    background-size: 32px 32px;  /* pixel block size, adjust as needed */
-    image-rendering: pixelated; /* Ensures sharp pixels */
+        linear-gradient(0deg, #46b04a 25%, transparent 25%, transparent 75%, #46b04a 75%),
+        linear-gradient(90deg, #59c256 25%, transparent 25%, transparent 75%, #59c256 75%),
+        linear-gradient(0deg, #3aa635 50%, transparent 50%),
+        linear-gradient(90deg, #2e8c2f 50%, transparent 50%);
+    background-size: 32px 32px;
+    background-position: 0 0, 0 0, 16px 16px, 16px 16px;
+    image-rendering: pixelated;
+    position: relative;
 }
 
-/* Creeper face centered */
+/* Creeper face (centered) */
 [data-testid="stSidebar"]::before {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Center the element */
-    width: 128px; /* Size of the face, adjust as needed */
+    transform: translate(-50%, -50%);
+    width: 128px;
     height: 128px;
-    background: #000; /* Black for the face features */
-    /* Using clip-path to create the pixelated Creeper face shape */
+    background: #000;
     clip-path: polygon(
-        /* Eyes */
-        15% 15%, 30% 15%, 30% 30%, 15% 30%, /* Left eye */
-        70% 15%, 85% 15%, 85% 30%, 70% 30%, /* Right eye */
-        /* Mouth (top part) */
-        35% 50%, 65% 50%, 65% 65%, 35% 65%,
-        /* Mouth (left leg) */
-        35% 65%, 50% 65%, 50% 85%, 35% 85%,
-        /* Mouth (right leg) */
-        50% 65%, 65% 65%, 65% 85%, 50% 85%
+        20% 20%, 35% 20%, 35% 35%, 20% 35%,  /* left eye */
+        65% 20%, 80% 20%, 80% 35%, 65% 35%,  /* right eye */
+        35% 50%, 65% 50%, 65% 65%, 35% 65%,  /* mouth top */
+        35% 65%, 50% 65%, 50% 85%, 35% 85%,  /* mouth left leg */
+        50% 65%, 65% 65%, 65% 85%, 50% 85%   /* mouth right leg */
     );
-    z-index: 1; /* Ensure face is above background */
-}
-
-/* Adjust text color in sidebar for better contrast */
-[data-testid="stSidebar"] .st-emotion-cache-vk3ypu { /* Target for selectbox label */
-    color: white;
-}
-[data-testid="stSidebar"] .st-emotion-cache-vk3ypu p { /* Target for selectbox label text */
-    color: white;
-}
-[data-testid="stSidebar"] .st-emotion-cache-10q7j36 { /* Target for selectbox options */
-    color: black; /* Options text should be readable */
-}
-
-/* Adjust the color of the selected option in the selectbox */
-[data-testid="stSidebar"] .st-emotion-cache-10q7j36 > div > div {
-    color: black; /* Default text color for selected item */
-}
-
-/* Adjust the color of the menu items */
-[data-testid="stSidebar"] .st-emotion-cache-10q7j36 li div p {
-    color: white; /* Make menu item text white */
-}
-[data-testid="stSidebar"] .st-emotion-cache-10q7j36 li.st-emotion-cache-13ln490 div p {
-    color: #000; /* Color for the active/selected menu item */
-}
-
-/* Adjust the color of the sidebar header/title if any */
-[data-testid="stSidebar"] .st-emotion-cache-1c7y2o9 {
-    color: white;
 }
 </style>
 """
