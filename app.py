@@ -8,12 +8,77 @@ from datetime import date, timedelta, datetime
 from zoneinfo import ZoneInfo
 from matplotlib import pyplot as plt
 from openpyxl import Workbook
+import random
 from dotenv import load_dotenv
 
 
 
 #----------Main Page DESIGN--------------
-# ... (your existing imports and code) ...
+
+# Define the folder containing your background images
+IMAGES_FOLDER = "assets"
+
+def get_random_background_image():
+    """
+    Selects a random JPG image from the assets folder.
+    This function is cached to ensure the same image is used
+    for a single session.
+    """
+    if 'background_image' not in st.session_state:
+        # Get a list of all JPG files in the folder
+        all_images = [f for f in os.listdir(IMAGES_FOLDER) if f.lower().endswith(('.jpg', '.jpeg'))]
+        if all_images:
+            # Construct a relative path for the web server to access
+            st.session_state.background_image = os.path.join(IMAGES_FOLDER, random.choice(all_images))
+        else:
+            # If no images are found, set a default
+            st.session_state.background_image = None
+    return st.session_state.background_image
+
+def set_background(image_url):
+    """
+    Sets the background image for the main page of the Streamlit app.
+    It uses a custom CSS style to apply the image and a semi-transparent
+    overlay to ensure text and UI elements remain visible.
+    """
+    if image_url:
+        page_bg_img = f'''
+        <style>
+        .main .block-container {{
+            background-image: url("{image_url}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            border-radius: 10px;
+            padding: 1rem;
+        }}
+        .main .block-container::before {{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: -1;
+            border-radius: 10px;
+        }}
+        .main .stMarkdown, .main .stButton, .main .stTextInput, .main .stSelectbox, .main .stRadio, .main .stCheckbox {{
+            color: black !important;
+            background-color: transparent !important;
+        }}
+        </style>
+        '''
+        st.markdown(page_bg_img, unsafe_allow_html=True)
+    else:
+        st.warning("No images found in the assets folder to set as a background.")
+
+# Now, call the functions at the beginning of your script to set the background.
+random_image_path = get_random_background_image()
+set_background(random_image_path)
+
+# ... _____________________________________________ ...
 
 def set_background(image_url):
     """
