@@ -10,6 +10,56 @@ from matplotlib import pyplot as plt
 from openpyxl import Workbook
 from dotenv import load_dotenv
 
+##--------CREEPER SIDEBAR DESIGN--------------
+from dotenv import load_dotenv
+
+# --- Creeper Sidebar Design ---
+sidebar_style = """
+<style>
+/* Apply only to sidebar */
+[data-testid="stSidebar"] {
+    background: 
+        linear-gradient(90deg, #1D5E2A 50%, #267F2D 50%),
+        linear-gradient(90deg, #267F2D 50%, #1D5E2A 50%);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    animation: creeperMove 3s linear infinite;
+}
+
+/* Creeper face silhouette (optional) */
+[data-testid="stSidebar"]::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 50% 50%, #000 35%, transparent 36%);
+    -webkit-mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Minecraft_Creeper_face.svg');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Minecraft_Creeper_face.svg');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    opacity: 0.2;
+}
+
+/* Moving grid animation */
+@keyframes creeperMove {
+    from { background-position: 0 0, 20px 20px; }
+    to { background-position: 40px 40px, 60px 60px; }
+}
+</style>
+"""
+import streamlit as st
+st.markdown(sidebar_style, unsafe_allow_html=True)
+
+
+
+# ---- Load environment variables ----
+load_dotenv()
+
 
 # ---- Load environment variables ----
 # Best practice to have a .env file for local development
@@ -242,7 +292,7 @@ def book_meal(user_id, lunch, dinner, dinner_choice, meal_date):
 
 def validate_convenor(username, room, pin):
     """Validates convenor credentials, including a hardcoded superadmin."""
-    if username == "sahid" and room == "47" and pin == "1202":
+    if username == os.getenv("SUPERADMIN_USER") and room == os.getenv("SUPERADMIN_ROOM") and pin == os.getenv("SUPERADMIN_PIN"):
         return "superadmin"
     
     row = execute_query(
