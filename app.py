@@ -15,28 +15,34 @@ from dotenv import load_dotenv
 #----------CREEPER SIDEBAR DESIGN--------------
 import base64
 import random
+
 # --- Get base64 of image ---
-def get_base64(file_path):
-    with open(file_path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
+# Pick random image from assets/
+image_files = [f for f in os.listdir("assets") if f.lower().endswith((".jpg", ".png"))]
+random_image = random.choice(image_files)
+with open(f"assets/{random_image}", "rb") as f:
+    img_base64 = base64.b64encode(f.read()).decode()
 
-# --- Select one random image for the session ---
-if "bg_image" not in st.session_state:
-    images = [f for f in os.listdir("assets") if f.lower().endswith((".jpg", ".png", ".jpeg"))]
-    chosen_image = random.choice(images)
-    st.session_state.bg_image = get_base64(os.path.join("assets", chosen_image))
-
-# --- Apply chosen background ---
 st.markdown(f"""
-<style>
-.stApp {{
-    background: url("data:image/jpg;base64,{st.session_state.bg_image}") no-repeat center center fixed;
-    background-size: cover;
-}}
-[data-testid="stSidebar"] {{
-    background: none !important;
-}}
-</style>
+    <style>
+    /* Background only on main page */
+    .stApp {{
+        background: url("data:image/jpeg;base64,{img_base64}") no-repeat center center fixed;
+        background-size: cover;
+    }}
+
+    /* Add translucent background for content readability */
+    .block-container {{
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 12px;
+        padding: 1rem;
+    }}
+
+    /* Sidebar unaffected */
+    [data-testid="stSidebar"] {{
+        background: white !important;
+    }}
+    </style>
 """, unsafe_allow_html=True)
 #----------------------------------------------------------------------------------------------------------------------------#
 
