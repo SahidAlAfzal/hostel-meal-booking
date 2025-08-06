@@ -12,6 +12,33 @@ import random
 from dotenv import load_dotenv
 import base64
 
+# ---- Custom Sidebar Background Image ----
+# A function to encode your image to a Base64 string
+def get_base64_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode()
+
+# Replace 'path/to/your/image.jpg' with the actual path to your image file
+image_path = "assets/Creeper.jpeg"
+image_base64 = get_base64_image(image_path)
+
+# Inject custom CSS for the sidebar
+st.markdown(
+    f"""
+    <style>
+    [data-testid="stSidebar"] {{
+        background-image: url("data:image/jpeg;base64,{image_base64}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+#---------------------------------------------------------------------------------
+
+
 
 
 # ---- Load environment variables ----
