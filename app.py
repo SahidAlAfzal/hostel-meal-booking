@@ -65,7 +65,21 @@ def get_base64_image(image_path):
 
 
 
-#------------------------INCREASING OPAQUE OF ALERT BOXES-----------------------
+#------------------------TEXT OUTLINE-----------------------------------
+st.markdown("""
+<style>
+[data-testid="stAppViewContainer"] *:not(.stAlert):not(.stAlert *):not(.stNotification):not(.stNotification *) {
+    color: inherit;
+    -webkit-text-stroke: 0.5px black;
+    paint-order: stroke fill;
+    text-shadow:
+        -0.5px -0.5px 0 black,
+         0.5px -0.5px 0 black,
+        -0.5px  0.5px 0 black,
+         0.5px  0.5px 0 black;
+}
+</style>
+""", unsafe_allow_html=True)
 #------------------------------------------------------------------------
 
 
