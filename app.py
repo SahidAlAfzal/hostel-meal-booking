@@ -430,19 +430,23 @@ elif menu == "Book Meal":
                 selected_user_name = st.selectbox("Select Your Name", user_map.keys())
                 
                 if selected_user_name:
+                    
+                    # --- MOVE THESE WIDGETS OUTSIDE THE FORM ---
+                    book_lunch = st.checkbox("Lunch", value=False)
+                    book_dinner = st.checkbox("Dinner", value=False)
+                    dinner_choice = None
+                    
+                    if book_dinner:
+                        dinner_option_for_day = get_dinner_option(meal_date)
+                        options = ["Egg", "Fish"] if dinner_option_for_day == "Fish" else ["Egg", "Chicken"]
+                        dinner_choice = st.radio("Dinner Choice", options)
+                    
+                    # --- THE FORM STARTS HERE ---
                     with st.form("booking_form"):
-                        book_lunch = st.checkbox("Lunch", value=False)
-                        book_dinner = st.checkbox("Dinner", value=False)
-                        dinner_choice = None   #Default
-
-                        if book_dinner == True:
-                            dinner_option_for_day = get_dinner_option(meal_date)
-                            options = ["Egg", "Fish"] if dinner_option_for_day == "Fish" else ["Egg", "Chicken"]
-                            dinner_choice = st.radio("Dinner Choice", options)
-                        
                         entered_pin = st.text_input("Enter your 4-digit PIN to confirm", type="password", max_chars=4)
                         
                         book_button = st.form_submit_button("Book Meal")
+                        
                         if book_button:
                             user_id, correct_pin = user_map[selected_user_name]
                             if entered_pin == correct_pin:
