@@ -66,40 +66,32 @@ if "bg_image" in st.session_state:
 #------------------------INCREASING OPAQUE OF ALERT BOXES-------------------------
 st.markdown("""
 <style>
-/* 100% Opaque Success Box (Green) */
-div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Success"]) {
+/* Success Box */
+div.stAlert div.stSuccess {
     background-color: rgba(46, 204, 113, 1) !important;
     color: white !important;
     font-weight: bold !important;
-    border-color: rgba(46, 204, 113, 1) !important;
-    box-shadow: none !important;
 }
 
-/* 100% Opaque Error Box (Red) */
-div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Error"]) {
+/* Error Box */
+div.stAlert div.stError {
     background-color: rgba(231, 76, 60, 1) !important;
     color: white !important;
     font-weight: bold !important;
-    border-color: rgba(231, 76, 60, 1) !important;
-    box-shadow: none !important;
 }
 
-/* 100% Opaque Warning Box (Yellow) */
-div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Warning"]) {
+/* Warning Box */
+div.stAlert div.stWarning {
     background-color: rgba(241, 196, 15, 1) !important;
     color: black !important;
     font-weight: bold !important;
-    border-color: rgba(241, 196, 15, 1) !important;
-    box-shadow: none !important;
 }
 
-/* 100% Opaque Info Box (Blue) */
-div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Info"]) {
+/* Info Box */
+div.stAlert div.stInfo {
     background-color: rgba(52, 152, 219, 1) !important;
     color: white !important;
     font-weight: bold !important;
-    border-color: rgba(52, 152, 219, 1) !important;
-    box-shadow: none !important;
 }
 </style>
 """, unsafe_allow_html=True)
