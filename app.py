@@ -433,7 +433,7 @@ elif menu == "Book Meal":
                     with st.form("booking_form"):
                         book_lunch = st.checkbox("Lunch", value=False)
                         book_dinner = st.checkbox("Dinner", value=False)
-                        if book_dinner:
+                        if book_dinner == True:
                             dinner_option_for_day = get_dinner_option(meal_date)
                             options = ["Egg", "Fish"] if dinner_option_for_day == "Fish" else ["Egg", "Chicken"]
                             dinner_choice = st.radio("Dinner Choice", options)
