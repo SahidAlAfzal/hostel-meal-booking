@@ -14,47 +14,10 @@ from dotenv import load_dotenv
 sidebar_style = """
 <style>
 [data-testid="stSidebar"] {
-    position: relative;
-    background-color: #1D5E2A;
-}
-
-/* Creeper pixel face as CSS grid */
-[data-testid="stSidebar"]::before {
-    content: "";
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 128px;
-    height: 128px;
-    display: grid;
-    grid-template-columns: repeat(8, 16px);
-    grid-template-rows: repeat(8, 16px);
-}
-
-/* Creeper pixels */
-[data-testid="stSidebar"]::before {
-    background: 
-        /* Row 1 */
-        linear-gradient(#3a7d3a 16px, transparent 0) 0 0,
-        linear-gradient(#3a7d3a 16px, transparent 0) 16px 0,
-        linear-gradient(#3a7d3a 16px, transparent 0) 32px 0,
-        linear-gradient(#3a7d3a 16px, transparent 0) 48px 0,
-        linear-gradient(#3a7d3a 16px, transparent 0) 64px 0,
-        linear-gradient(#3a7d3a 16px, transparent 0) 80px 0,
-        linear-gradient(#3a7d3a 16px, transparent 0) 96px 0,
-        linear-gradient(#3a7d3a 16px, transparent 0) 112px 0,
-        /* Eyes */
-        linear-gradient(#000 32px, transparent 0) 32px 32px,
-        linear-gradient(#000 32px, transparent 0) 80px 32px,
-        /* Mouth */
-        linear-gradient(#000 16px, transparent 0) 48px 64px,
-        linear-gradient(#000 16px, transparent 0) 64px 64px,
-        linear-gradient(#000 32px, transparent 0) 48px 80px;
-    background-repeat: no-repeat;
-    background-size: 16px 16px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABg3AmrAAABJElEQVR4nO2ZwQ2DMBBFXeNmbYk2wQAuw2Y0yTTzEDw7A8dgo+bX0LDVemYEXUkiPdnF9tpUChM2S1h8A6gB6kBWgD9QAt4DuAApjb6hL7QzXnZ7ELRTiB0mfwkGq2hEYaJAc0ZsEk8spHW7sb82UeUbtP0XjF9h3V2uMt0UkV+ywShz2CO6lJwHOSmgATcJ8FK0C7OofezDxyIwf6D6gmCPyvdK5AM1kM3q4gj7d5+Vbs6WJrxxysBebXHvZguzsKRBbfrb4KnIu4GMMIN0/xtynBQ6vwD5eJ9XkTGPcQbNEbESuVjdz7nFwNPnKfwybqjYIru3m8O8BXnAnSpf0Ul8AAAAASUVORK5CYII=');
+    background-size: 64px 64px;
+    background-repeat: repeat;
     image-rendering: pixelated;
-    opacity: 0.9;
 }
 </style>
 """
