@@ -37,6 +37,8 @@ def get_base64_image(image_path):
 #    """,
 #    unsafe_allow_html=True,
 #)
+import streamlit as st
+
 st.markdown("""
 <style>
 /* Hides the Streamlit header */
@@ -44,38 +46,41 @@ st.markdown("""
     opacity: 0 !important;
 }
 
-/* --- The Fix is Here --- */
-/* Use 'background' instead of 'background-color' for more robust override */
+/* --- The Correct Fix for Modern Streamlit Versions --- */
+/* Target the inner div that actually holds the background color */
 
 /* Success (green) */
-.stAlert[aria-label="success"] {
-    background: #4CAF50 !important; /* Changed from background-color */
+.stAlert[data-testid="stAlert"][aria-label="success"] > div:first-child {
+    background-color: #4CAF50 !important;
     color: white !important;
-    opacity: 1 !important;
 }
 
 /* Error (red) */
-.stAlert[aria-label="error"] {
-    background: #F44336 !important; /* Changed from background-color */
+.stAlert[data-testid="stAlert"][aria-label="error"] > div:first-child {
+    background-color: #F44336 !important;
     color: white !important;
-    opacity: 1 !important;
 }
 
 /* Warning (yellow) */
-.stAlert[aria-label="warning"] {
-    background: #FFC107 !important; /* Changed from background-color */
+.stAlert[data-testid="stAlert"][aria-label="warning"] > div:first-child {
+    background-color: #FFC107 !important;
     color: black !important;
-    opacity: 1 !important;
 }
 
 /* Info (blue) */
-.stAlert[aria-label="info"] {
-    background: #2196F3 !important; /* Changed from background-color */
+.stAlert[data-testid="stAlert"][aria-label="info"] > div:first-child {
+    background-color: #2196F3 !important;
     color: white !important;
-    opacity: 1 !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+# Example usage to test the styles
+st.success("This is a success message. It should now have a solid green background.")
+st.error("This is an error message. It should now have a solid red background.")
+st.warning("This is a warning message. It should now have a solid yellow background.")
+st.info("This is an info message. It should now have a solid blue background.")
 
 
 #-------------------------------------------------------------------------------------
