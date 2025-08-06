@@ -17,26 +17,26 @@ import base64
 def get_base64_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
-
+#------------------------------------------------------------------------------------------
 # Replace 'path/to/your/image.jpg' with the actual path to your image file
-image_path = "assets/Creeper2.jpeg"
-image_base64 = get_base64_image(image_path)
+#image_path = "assets/Creeper2.jpeg"
+#image_base64 = get_base64_image(image_path)
 
 # Inject custom CSS for the sidebar
-st.markdown(
-    f"""
-    <style>
-    [data-testid="stSidebar"] {{
-        background-image: url("data:image/jpeg;base64,{image_base64}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
+#st.markdown(
+#    f"""
+#    <style>
+#    [data-testid="stSidebar"] {{
+#        background-image: url("data:image/jpeg;base64,{image_base64}");
+#        background-size: cover;
+#        background-position: center;
+#        background-repeat: no-repeat;
+#    }}
+#    </style>
+#    """,
+#    unsafe_allow_html=True,
+#)
+#-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
               if img.lower().endswith((".png", ".jpg"))]
@@ -66,29 +66,32 @@ if "bg_image" in st.session_state:
 #------------------------INCREASING OPAQUE OF ALERT BOXES-------------------------
 st.markdown("""
 <style>
-/* More robust CSS to make alert boxes fully opaque */
-.stAlert {
-    opacity: 1 !important;
-}
-
-div[data-testid="stSuccess"] {
-    background-color: #006400 !important;  /* Deep Green */
+/* Success Box (Green) */
+div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Success"]) {
+    background-color: rgba(46, 204, 113, 1) !important;
     color: white !important;
+    font-weight: bold !important;
 }
 
-div[data-testid="stInfo"] {
-    background-color: #00008B !important;  /* Deep Blue */
+/* Error Box (Red) */
+div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Error"]) {
+    background-color: rgba(231, 76, 60, 1) !important;
     color: white !important;
+    font-weight: bold !important;
 }
 
-div[data-testid="stWarning"] {
-    background-color: #FF8C00 !important;  /* Dark Orange */
+/* Warning Box (Yellow) */
+div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Warning"]) {
+    background-color: rgba(241, 196, 15, 1) !important;
     color: black !important;
+    font-weight: bold !important;
 }
 
-div[data-testid="stError"] {
-    background-color: #8B0000 !important;  /* Dark Red */
+/* Info Box (Blue) */
+div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Info"]) {
+    background-color: rgba(52, 152, 219, 1) !important;
     color: white !important;
+    font-weight: bold !important;
 }
 </style>
 """, unsafe_allow_html=True)
