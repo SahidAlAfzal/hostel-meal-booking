@@ -431,8 +431,8 @@ elif menu == "Book Meal":
                 
                 if selected_user_name:
                     with st.form("booking_form"):
-                        book_lunch = st.checkbox("Lunch", value=True)
-                        book_dinner = st.checkbox("Dinner", value=True)
+                        book_lunch = st.checkbox("Lunch", value=False)
+                        book_dinner = st.checkbox("Dinner", value=False)
                         if book_dinner:
                             dinner_option_for_day = get_dinner_option(meal_date)
                             options = ["Egg", "Fish"] if dinner_option_for_day == "Fish" else ["Egg", "Chicken"]
