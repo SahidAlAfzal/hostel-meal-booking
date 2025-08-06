@@ -10,42 +10,44 @@ from matplotlib import pyplot as plt
 from openpyxl import Workbook
 import random
 from dotenv import load_dotenv
+import base64
 
 
 
 #----------Main Page DESIGN--------------
-
 # Define the folder containing your background images
 IMAGES_FOLDER = "assets"
 
-def get_random_background_image():
+@st.cache_data
+def get_base64_of_random_image():
     """
-    Selects a random JPG image from the assets folder.
+    Selects a random JPG image from the assets folder and encodes it
+    as a Base64 string.
     This function is cached to ensure the same image is used
     for a single session.
     """
-    if 'background_image' not in st.session_state:
-        # Get a list of all JPG files in the folder
-        all_images = [f for f in os.listdir(IMAGES_FOLDER) if f.lower().endswith(('.jpg', '.jpeg'))]
-        if all_images:
-            # Construct a relative path for the web server to access
-            st.session_state.background_image = os.path.join(IMAGES_FOLDER, random.choice(all_images))
-        else:
-            # If no images are found, set a default
-            st.session_state.background_image = None
-    return st.session_state.background_image
+    all_images = [f for f in os.listdir(IMAGES_FOLDER) if f.lower().endswith(('.jpg', '.jpeg'))]
+    if not all_images:
+        return None
+        
+    random_image_path = os.path.join(IMAGES_FOLDER, random.choice(all_images))
+    
+    with open(random_image_path, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode()
+    return encoded_string
 
-def set_background(image_url):
+def set_background():
     """
-    Sets the background image for the main page of the Streamlit app.
-    It uses a custom CSS style to apply the image and a semi-transparent
-    overlay to ensure text and UI elements remain visible.
+    Sets the background image for the main page of the Streamlit app using
+    a Base64 encoded string to avoid pathing issues on deployment.
     """
-    if image_url:
+    encoded_string = get_base64_of_random_image()
+    
+    if encoded_string:
         page_bg_img = f'''
         <style>
         .main .block-container {{
-            background-image: url("{image_url}");
+            background-image: url("data:image/jpeg;base64,{encoded_string}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -72,58 +74,11 @@ def set_background(image_url):
         '''
         st.markdown(page_bg_img, unsafe_allow_html=True)
     else:
-        st.warning("No images found in the assets folder to set as a background.")
-
-# Now, call the functions at the beginning of your script to set the background.
-random_image_path = get_random_background_image()
-set_background(random_image_path)
-
-# ... _____________________________________________ ...
-
-def set_background(image_url):
-    """
-    Sets the background image for the main page of the Streamlit app.
-    It uses a custom CSS style to apply the image and a semi-transparent
-    overlay to ensure text and UI elements remain visible.
-    """
-    page_bg_img = f'''
-    <style>
-    /* Target the main content area */
-    .main .block-container {{
-        background-image: url("{image_url}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        border-radius: 10px;
-        padding: 1rem;
-    }}
-
-    /* Add an overlay to ensure text is readable */
-    .main .block-container::before {{
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.7); /* Adjust the transparency here */
-        z-index: -1;
-        border-radius: 10px;
-    }}
-
-    /* Make sure all text and elements have enough contrast */
-    .main .stMarkdown, .main .stButton, .main .stTextInput, .main .stSelectbox {{
-        color: black !important;
-        background-color: transparent !important;
-    }}
-    </style>
-    '''
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+        st.warning("No JPG images found in the 'assets' folder to set as a background.")
 
 # Now, call the function at the beginning of your script to set the background.
-# Make sure the path to your image is correct.
-set_background("./assets/your_image.jpg")
+set_background()
+
 #----------------------------------------------------------------------------------------------------------------------------#
 
 
