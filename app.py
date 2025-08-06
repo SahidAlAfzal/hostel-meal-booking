@@ -13,11 +13,48 @@ from dotenv import load_dotenv
 #----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
 <style>
-/* Base64 creeper pixel texture applied strictly to sidebar */
-[data-testid="stSidebar"] > div:first-child {
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAAAyUlEQVR42u3bMQ7CMAwFUEfGpWkFuXwBliKJyQfqL9RMMc2tj3h3lGvYfApYzVY+TjYASQHKhOE0+Wg5AAx4JJAAADuYvmdIAhFMxDC8z9iNngAX8DmjgA3scA3obdGExZ+noSJJcGEiWTKoWIuRO8JJCDQyAkBNPZZkScAQwrGKEiRZhxgQZnEdh6VStRBkyrXbO1mA+jUq1z67PoGpLtXpn4pyOkKHtytvLF0TF5dpOcft4gHcEH07FTgEPlYzA+fQEfCfwF8Hkjbxzz+T8lZnO0/N2IksuKnub7Gvh9URMQZQAAAABJRU5ErkJggg==') repeat !important;
-    background-size: 64px 64px !important;
-    image-rendering: pixelated !important;
+[data-testid="stSidebar"] {
+    position: relative;
+    background-color: #1D5E2A;
+}
+
+/* Creeper pixel face as CSS grid */
+[data-testid="stSidebar"]::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 128px;
+    height: 128px;
+    display: grid;
+    grid-template-columns: repeat(8, 16px);
+    grid-template-rows: repeat(8, 16px);
+}
+
+/* Creeper pixels */
+[data-testid="stSidebar"]::before {
+    background: 
+        /* Row 1 */
+        linear-gradient(#3a7d3a 16px, transparent 0) 0 0,
+        linear-gradient(#3a7d3a 16px, transparent 0) 16px 0,
+        linear-gradient(#3a7d3a 16px, transparent 0) 32px 0,
+        linear-gradient(#3a7d3a 16px, transparent 0) 48px 0,
+        linear-gradient(#3a7d3a 16px, transparent 0) 64px 0,
+        linear-gradient(#3a7d3a 16px, transparent 0) 80px 0,
+        linear-gradient(#3a7d3a 16px, transparent 0) 96px 0,
+        linear-gradient(#3a7d3a 16px, transparent 0) 112px 0,
+        /* Eyes */
+        linear-gradient(#000 32px, transparent 0) 32px 32px,
+        linear-gradient(#000 32px, transparent 0) 80px 32px,
+        /* Mouth */
+        linear-gradient(#000 16px, transparent 0) 48px 64px,
+        linear-gradient(#000 16px, transparent 0) 64px 64px,
+        linear-gradient(#000 32px, transparent 0) 48px 80px;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    image-rendering: pixelated;
+    opacity: 0.9;
 }
 </style>
 """
