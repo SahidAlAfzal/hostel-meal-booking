@@ -12,40 +12,11 @@ from dotenv import load_dotenv
 
 #----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
-<style>
-/* Apply only to sidebar */
 [data-testid="stSidebar"] {
-    background: 
-        linear-gradient(90deg, #1D5E2A 50%, #267F2D 50%),
-        linear-gradient(90deg, #267F2D 50%, #1D5E2A 50%);
-    background-size: 40px 40px;
-    background-position: 0 0, 20px 20px;
-    animation: creeperMove 3s linear infinite;
-}
-
-/* Creeper face silhouette (optional) */
-[data-testid="stSidebar"]::before {
-    content: "";
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle at 50% 50%, #000 35%, transparent 36%);
-    -webkit-mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Minecraft_Creeper_face.svg');
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: contain;
-    mask-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Minecraft_Creeper_face.svg');
-    mask-repeat: no-repeat;
-    mask-size: contain;
-    opacity: 0.2;
-}
-
-/* Moving grid animation */
-@keyframes creeperMove {
-    from { background-position: 0 0, 20px 20px; }
-    to { background-position: 40px 40px, 60px 60px; }
+    background-image: url('https://i.imgur.com/khOY8I0.png');
+    background-repeat: repeat;
+    background-size: 64px 64px; /* pixelated look */
+    image-rendering: pixelated;
 }
 </style>
 """
