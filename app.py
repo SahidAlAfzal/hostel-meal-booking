@@ -66,13 +66,13 @@ div[data-testid="stNotification"] > div[aria-label="warning"] {
 }
 
 div[data-testid="stNotification"] > div[aria-label="info"] {
-    background-color: rgba(66, 133, 244, 1) !important;
+    background-color: rgba(66, 133, 244, 0) !important;
     border-left: 4px solid rgba(26, 115, 232, 1) !important;
 }
 
 /* Fix text color contrast */
 div[data-testid="stNotification"] > div {
-    color: rgba(0, 0, 0, 0.87) !important;
+    color: rgba(0, 0, 0, 1) !important;
 }
 </style>
 """, unsafe_allow_html=True)
