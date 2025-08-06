@@ -15,68 +15,46 @@ import base64
 
 
 #----------Main Page DESIGN--------------
-# Define the folder containing your background images
+# Folder containing images
 IMAGES_FOLDER = "assets"
 
 @st.cache_data
 def get_base64_of_random_image():
-    """
-    Selects a random JPG image from the assets folder and encodes it
-    as a Base64 string.
-    This function is cached to ensure the same image is used
-    for a single session.
-    """
+    """Select a random JPG image from assets folder and return Base64 string."""
     all_images = [f for f in os.listdir(IMAGES_FOLDER) if f.lower().endswith(('.jpg', '.jpeg'))]
     if not all_images:
         return None
-        
     random_image_path = os.path.join(IMAGES_FOLDER, random.choice(all_images))
-    
     with open(random_image_path, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode()
-    return encoded_string
+        return base64.b64encode(image_file.read()).decode()
 
 def set_background():
-    """
-    Sets the background image for the main page of the Streamlit app using
-    a Base64 encoded string to avoid pathing issues on deployment.
-    """
+    """Sets a random background image for the main page only."""
     encoded_string = get_base64_of_random_image()
-    
     if encoded_string:
-        page_bg_img = f'''
-        <style>
-        .main .block-container {{
-            background-image: url("data:image/jpeg;base64,{encoded_string}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            border-radius: 10px;
-            padding: 1rem;
-        }}
-        .main .block-container::before {{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.7);
-            z-index: -1;
-            border-radius: 10px;
-        }}
-        .main .stMarkdown, .main .stButton, .main .stTextInput, .main .stSelectbox, .main .stRadio, .main .stCheckbox {{
-            color: black !important;
-            background-color: transparent !important;
-        }}
-        </style>
-        '''
-        st.markdown(page_bg_img, unsafe_allow_html=True)
+        st.markdown(f"""
+            <style>
+            /* Full main background */
+            .stApp {{
+                background: url("data:image/jpeg;base64,{encoded_string}") no-repeat center center fixed;
+                background-size: cover;
+            }}
+            /* Sidebar remains white */
+            [data-testid="stSidebar"] {{
+                background: white !important;
+            }}
+            /* Content area transparent with glass effect */
+            .block-container {{
+                background: rgba(255, 255, 255, 0.5);
+                backdrop-filter: blur(4px);
+                border-radius: 8px;
+                padding: 1rem;
+            }}
+            </style>
+        """, unsafe_allow_html=True)
     else:
-        st.warning("No JPG images found in the 'assets' folder to set as a background.")
+        st.warning("No JPG images found in the 'assets' folder.")
 
-# Now, call the function at the beginning of your script to set the background.
 set_background()
 
 #----------------------------------------------------------------------------------------------------------------------------#
