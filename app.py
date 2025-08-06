@@ -12,10 +12,11 @@ from dotenv import load_dotenv
 
 #----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
-[data-testid="stSidebar"] {
+<style>
+section[data-testid="stSidebar"] {
     background-image: url('https://i.imgur.com/khOY8I0.png');
     background-repeat: repeat;
-    background-size: 64px 64px; /* pixelated look */
+    background-size: 64px 64px;  /* pixelated look */
     image-rendering: pixelated;
 }
 </style>
