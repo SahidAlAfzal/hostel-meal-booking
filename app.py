@@ -10,10 +10,7 @@ from matplotlib import pyplot as plt
 from openpyxl import Workbook
 from dotenv import load_dotenv
 
-##--------CREEPER SIDEBAR DESIGN--------------
-from dotenv import load_dotenv
-
-# --- Creeper Sidebar Design ---
+#----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
 <style>
 /* Apply only to sidebar */
@@ -55,10 +52,6 @@ sidebar_style = """
 import streamlit as st
 st.markdown(sidebar_style, unsafe_allow_html=True)
 
-
-
-# ---- Load environment variables ----
-load_dotenv()
 
 
 # ---- Load environment variables ----
