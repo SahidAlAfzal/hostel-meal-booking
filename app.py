@@ -37,6 +37,13 @@ def get_base64_image(image_path):
 #    """,
 #    unsafe_allow_html=True,
 #)
+st.markdown("""
+<style>
+.stAppHeader {
+    opacity: 0 !important; /* or 1 for visible */
+}
+</style>
+""", unsafe_allow_html=True)
 #-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
