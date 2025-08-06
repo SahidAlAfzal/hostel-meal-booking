@@ -63,6 +63,49 @@ if "bg_image" in st.session_state:
 #---------------------------------------------------------------------------------
 
 
+#------------------------INCREASING OPAQUE OF ALERT BOXES-------------------------
+st.markdown("""
+<style>
+/* Make Success box fully opaque */
+div[data-testid="stSuccess"] {
+    background-color: #21C37B !important;  /* Solid green */
+    opacity: 1 !important;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Make Info box fully opaque */
+div[data-testid="stInfo"] {
+    background-color: #1E90FF !important;  /* Solid blue */
+    opacity: 1 !important;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Make Warning box fully opaque */
+div[data-testid="stWarning"] {
+    background-color: #FFC107 !important;  /* Solid yellow */
+    opacity: 1 !important;
+    color: black !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Make Error box fully opaque */
+div[data-testid="stError"] {
+    background-color: #DC3545 !important;  /* Solid red */
+    opacity: 1 !important;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+</style>
+""", unsafe_allow_html=True)
+
+#------------------------------------------------------------------------
+
 
 
 # ---- Load environment variables ----
