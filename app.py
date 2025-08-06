@@ -49,13 +49,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# Example usage to test the styles
-st.success("This is a success message. It should now have a solid green background.")
-st.error("This is an error message. It should now have a solid red background.")
-st.warning("This is a warning message. It should now have a solid yellow background.")
-st.info("This is an info message. It should now have a solid blue background.")
-
-
 #-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
