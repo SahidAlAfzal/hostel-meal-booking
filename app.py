@@ -14,65 +14,6 @@ import base64
 
 
 
-#----------Main Page DESIGN--------------
-IMAGES_FOLDER = "assets"
-
-@st.cache_data
-def get_base64_of_random_image():
-    """Pick a random JPG/JPEG from assets and return base64 encoded string."""
-    all_images = [f for f in os.listdir(IMAGES_FOLDER) if f.lower().endswith(('.jpg', '.jpeg'))]
-    if not all_images:
-        return None
-    random_image_path = os.path.join(IMAGES_FOLDER, random.choice(all_images))
-    with open(random_image_path, "rb") as img:
-        return base64.b64encode(img.read()).decode()
-
-def set_background():
-    """Apply background to main page only, keep sidebar default."""
-    encoded_string = get_base64_of_random_image()
-    if not encoded_string:
-        st.warning("No JPG images found in assets/ for background.")
-        return
-    
-    page_bg_img = f"""
-    <style>
-    /* Apply background only to main page, not sidebar */
-    .main .block-container {{
-        background: url("data:image/jpeg;base64,{encoded_string}") no-repeat center center fixed;
-        background-size: cover;
-        border-radius: 10px;
-        padding: 1rem;
-    }}
-
-    /* Make text readable with shadow */
-    .main .stMarkdown, .main .stButton > button, .main .stTextInput > div > input,
-    .main .stSelectbox > div[data-baseweb="select"] > div, .main .stRadio > div, .main .stCheckbox > label {{
-        color: black !important;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-    }}
-
-    /* Slight white background for blocks inside main page (optional) */
-    .block-container {{
-        background-color: rgba(255,255,255,0.5);
-        border-radius: 10px;
-        padding: 1rem;
-    }}
-
-    /* Sidebar untouched (default) */
-    [data-testid="stSidebar"] {{
-        background: inherit !important;
-    }}
-    </style>
-    """
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-
-# call this early in your script
-set_background()
-#----------------------------------------------------------------------------------------------------------------------------#
-
-
-
-
 # ---- Load environment variables ----
 # Best practice to have a .env file for local development
 load_dotenv()
