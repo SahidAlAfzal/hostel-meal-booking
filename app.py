@@ -17,6 +17,7 @@ import base64
 def get_base64_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
+
 #------------------------------------------------------------------------------------------
 # Replace 'path/to/your/image.jpg' with the actual path to your image file
 #image_path = "assets/Creeper2.jpeg"
@@ -37,56 +38,34 @@ def get_base64_image(image_path):
 #    unsafe_allow_html=True,
 #)
 #-------------------------------------------------------------------------------------
-def pick_random_image(folder="assets"):
-    images = [os.path.join(folder, img) for img in os.listdir(folder)
-              if img.lower().endswith((".png", ".jpg"))]
-    return random.choice(images) if images else None
+#def pick_random_image(folder="assets"):
+#    images = [os.path.join(folder, img) for img in os.listdir(folder)
+#             if img.lower().endswith((".png", ".jpg"))]
+#    return random.choice(images) if images else None
 
 # Pick only once per session
-if "bg_image" not in st.session_state:
-    chosen_image = pick_random_image("assets")
-    if chosen_image:
-        st.session_state.bg_image = get_base64_image(chosen_image)
+#if "bg_image" not in st.session_state:
+   # chosen_image = pick_random_image("assets")
+   # if chosen_image:
+   #     st.session_state.bg_image = get_base64_image(chosen_image)
 
 # Apply style
-if "bg_image" in st.session_state:
-    st.markdown(f"""
-        <style>
-        .stApp {{
-            background-image: url("data:image/jpeg;base64,{st.session_state.bg_image}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }}
-        </style>
-    """, unsafe_allow_html=True)
+#if "bg_image" in st.session_state:
+    # st.markdown(f"""
+    #    <style>
+    #     .stApp {{
+    #        background-image: url("data:image/jpeg;base64,{st.session_state.bg_image}");
+    #        background-size: cover;
+    #        background-position: center;
+    #        background-repeat: no-repeat;
+    #    }}
+    #    </style>
+    #""", unsafe_allow_html=True)
 #---------------------------------------------------------------------------------
 
 
-#------------------------INCREASING OPAQUE OF ALERT BOXES-------------------------
-st.markdown("""
-<style>
-/* 100% Opaque Info Box (Blue) */
-div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Info"]) {
-    background-color: rgba(52, 152, 219, 1) !important;
-    color: white !important;
-    font-weight: bold !important;
-    border-color: rgba(52, 152, 219, 1) !important;
-    box-shadow: none !important;
-}
 
-/* Other alert styles here... */
-div[data-testid="stAlert"]:has(div[role="alert"][aria-label="Success"]) {
-    background-color: rgba(46, 204, 113, 1) !important;
-    color: white !important;
-    font-weight: bold !important;
-    border-color: rgba(46, 204, 113, 1) !important;
-    box-shadow: none !important;
-}
-
-/* ... and so on for Warning and Error alerts */
-</style>
-""", unsafe_allow_html=True)
+#------------------------INCREASING OPAQUE OF ALERT BOXES-----------------------
 #------------------------------------------------------------------------
 
 
