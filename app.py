@@ -12,8 +12,6 @@ from dotenv import load_dotenv
 
 
 
-
-
 #----------CREEPER SIDEBAR DESIGN--------------
 import base64
 import random
