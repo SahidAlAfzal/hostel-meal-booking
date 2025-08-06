@@ -19,7 +19,7 @@ def get_base64_image(image_path):
         return base64.b64encode(image_file.read()).decode()
 
 # Replace 'path/to/your/image.jpg' with the actual path to your image file
-image_path = "assets/Creeper.jpeg"
+image_path = "assets/Creeper2.jpeg"
 image_base64 = get_base64_image(image_path)
 
 # Inject custom CSS for the sidebar
