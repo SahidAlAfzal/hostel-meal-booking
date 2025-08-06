@@ -13,37 +13,82 @@ from dotenv import load_dotenv
 #----------CREEPER SIDEBAR DESIGN--------------
 sidebar_style = """
 <style>
-/* Sidebar background pixelated green blocks */
 [data-testid="stSidebar"] {
-    background-color: #3aa635;
-    background-image:
-        linear-gradient(0deg, #46b04a 25%, transparent 25%, transparent 75%, #46b04a 75%),
-        linear-gradient(90deg, #59c256 25%, transparent 25%, transparent 75%, #59c256 75%),
-        linear-gradient(0deg, #3aa635 50%, transparent 50%),
-        linear-gradient(90deg, #2e8c2f 50%, transparent 50%);
-    background-size: 32px 32px;
-    background-position: 0 0, 0 0, 16px 16px, 16px 16px;
-    image-rendering: pixelated;
     position: relative;
+    background-color: #3aa635; /* Darker green base color for the background */
+    /* Creates a pixelated checkerboard pattern using two linear gradients */
+    background-image:
+        linear-gradient(45deg, #4CAF50 25%, transparent 25%, transparent 75%, #4CAF50 75%),
+        linear-gradient(-45deg, #4CAF50 25%, transparent 25%, transparent 75%, #4CAF50 75%);
+    background-size: 64px 64px; /* Defines the size of each repeating checkerboard block */
+    background-position: 0 0, 32px 32px; /* Offsets the second gradient to create the checkerboard effect */
+    image-rendering: pixelated; /* Ensures the background pixels are sharp, not blurry */
+    overflow: hidden; /* Hides any content that might extend beyond the sidebar's boundaries */
 }
 
-/* Creeper face (centered) */
+/* Pseudo-element to create the Creeper face, positioned absolutely and centered */
 [data-testid="stSidebar"]::before {
-    content: "";
+    content: ""; /* Required for pseudo-elements */
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 128px;
-    height: 128px;
-    background: #000;
+    top: 50%; /* Vertically center */
+    left: 50%; /* Horizontally center */
+    transform: translate(-50%, -50%); /* Adjusts for the element's own size to truly center it */
+    width: 200px; /* Set a larger width for the Creeper face */
+    height: 200px; /* Set a larger height for the Creeper face */
+    background: #000; /* Black color for the face features */
+    /* Uses clip-path to define the complex shape of the Creeper's eyes and mouth */
+    /* The percentages are relative to the width/height of this ::before element (200px x 200px) */
+    /* Each "pixel" in the 8x8 Creeper face grid is 12.5% of the total dimension */
     clip-path: polygon(
-        20% 20%, 35% 20%, 35% 35%, 20% 35%,  /* left eye */
-        65% 20%, 80% 20%, 80% 35%, 65% 35%,  /* right eye */
-        35% 50%, 65% 50%, 65% 65%, 35% 65%,  /* mouth top */
-        35% 65%, 50% 65%, 50% 85%, 35% 85%,  /* mouth left leg */
-        50% 65%, 65% 65%, 65% 85%, 50% 85%   /* mouth right leg */
+        /* Left Eye: Defines a square for the left eye */
+        12.5% 12.5%, 25% 12.5%, 25% 25%, 12.5% 25%,
+        /* Right Eye: Defines a square for the right eye */
+        62.5% 12.5%, 75% 12.5%, 75% 25%, 62.5% 25%,
+        /* Mouth Top Bar: Corrected to be 4 "pixels" wide (from 37.5% to 75%) */
+        37.5% 50%, 75% 50%, 75% 62.5%, 37.5% 62.5%,
+        /* Mouth Left Leg: Defines the left vertical leg of the mouth */
+        37.5% 62.5%, 50% 62.5%, 50% 87.5%, 37.5% 87.5%,
+        /* Mouth Right Leg: Defines the right vertical leg of the mouth */
+        50% 62.5%, 62.5% 62.5%, 62.5% 87.5%, 50% 87.5%
     );
+    z-index: 1; /* Ensures the Creeper face is rendered above the background pattern */
+}
+
+/* Adjusts the text color and weight for the selectbox label in the sidebar for better contrast */
+[data-testid="stSidebar"] .st-emotion-cache-vk3ypu {
+    color: white;
+    font-weight: bold;
+}
+/* Specific targeting for the paragraph text within the selectbox label */
+[data-testid="stSidebar"] .st-emotion-cache-vk3ypu p {
+    color: white;
+    font-weight: bold;
+}
+/* Adjusts the color of the options within the selectbox dropdown */
+[data-testid="stSidebar"] .st-emotion-cache-10q7j36 {
+    color: black; /* Ensures options text is readable against a potentially lighter dropdown background */
+}
+
+/* Adjusts the color of the currently selected option displayed in the selectbox */
+[data-testid="stSidebar"] .st-emotion-cache-10q7j36 > div > div {
+    color: black; /* Default text color for the selected item */
+}
+
+/* Adjusts the color of the main menu items in the sidebar */
+[data-testid="stSidebar"] .st-emotion-cache-10q7j36 li div p {
+    color: white; /* Makes the menu item text white for contrast */
+}
+/* Styles for the active (currently selected) menu item in the sidebar */
+[data-testid="stSidebar"] .st-emotion-cache-10q7j36 li.st-emotion-cache-13ln490 div p {
+    color: #000; /* Changes the text color of the active item to black */
+    background-color: #a0a0a0; /* Adds a subtle gray background to the active item */
+    padding: 8px; /* Adds some padding around the active item */
+    border-radius: 5px; /* Applies rounded corners to the active item's background */
+}
+
+/* Adjusts the color of any potential header or title within the sidebar */
+[data-testid="stSidebar"] .st-emotion-cache-1c7y2o9 {
+    color: white;
 }
 </style>
 """
