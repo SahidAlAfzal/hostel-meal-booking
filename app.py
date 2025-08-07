@@ -54,26 +54,28 @@ st.markdown("""
     <style>
         /* Apply to all alert boxes */
         .stAlert {
-            border-radius: 12px !important;  /* Rounded corners */
-            border: 1px solid black !important;  /* Thin black outline */
+            border-radius: 12px !important;
+            border: 1px solid black !important;
+            background-image: none !important;  /* Remove any gradient/overlay */
+            box-shadow: none !important;  /* Optional: remove inner shadow */
         }
 
-        /* Optional: Ensure each alert box has solid background color */
+        /* Make each type fully opaque with solid background */
 
         .stAlert[data-testid="stAlert-success"] {
-            background-color: rgba(56, 142, 60, 1) !important;
+            background-color: #388E3C !important;  /* Solid green */
         }
 
         .stAlert[data-testid="stAlert-info"] {
-            background-color: rgba(2, 136, 209, 1) !important;
+            background-color: #0288D1 !important;  /* Solid blue */
         }
 
         .stAlert[data-testid="stAlert-warning"] {
-            background-color: rgba(251, 192, 45, 1) !important;
+            background-color: #FBC02D !important;  /* Solid amber */
         }
 
         .stAlert[data-testid="stAlert-error"] {
-            background-color: rgba(211, 47, 47, 1) !important;
+            background-color: #D32F2F !important;  /* Solid red */
         }
     </style>
 """, unsafe_allow_html=True)
