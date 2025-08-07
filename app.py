@@ -59,27 +59,36 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-def opaque_alert(message, type='info'):
-    background_colors = {
-        'info': 'rgba(0, 123, 255, 1)',     # Solid blue
-        'success': 'rgba(40, 167, 69, 1)',  # Solid green
-        'warning': 'rgba(255, 193, 7, 1)',  # Solid yellow
-        'error': 'rgba(220, 53, 69, 1)'     # Solid red
+
+st.markdown("""
+    <style>
+    /* Make all alert boxes opaque and preserve their default colors */
+    .stAlert div[data-testid="stMarkdownContainer"] {
+        background-color: inherit !important; /* Use the original color */
     }
 
-    bg = background_colors.get(type, 'rgba(0, 123, 255, 1)')
+    /* Info alert */
+    .stAlert[data-icon="info"] {
+        background-color: rgba(0, 123, 255, 1) !important;
+    }
 
-    st.markdown(
-        f"""
-        <div style="
-            background-color: {bg};
-            color: white;
-            padding: 1em;
-        ">
-            {message}
-        </div>
-        """, unsafe_allow_html=True
-    )
+    /* Success alert */
+    .stAlert[data-icon="check-circle"] {
+        background-color: rgba(40, 167, 69, 1) !important;
+    }
+
+    /* Warning alert */
+    .stAlert[data-icon="triangle"] {
+        background-color: rgba(255, 193, 7, 1) !important;
+        color: black !important;
+    }
+
+    /* Error alert */
+    .stAlert[data-icon="x-circle"] {
+        background-color: rgba(220, 53, 69, 1) !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
 
 #-------------------------------------------------------------------------------------
