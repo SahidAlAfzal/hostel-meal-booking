@@ -45,28 +45,6 @@ st.markdown("""
 .stAppHeader {
     opacity: 0 !important;
 }
-/* Remove transparency from all alert boxes using exact background */
-.stAlert > div:first-child {
-    background-color: rgba(255, 255, 255, 0) !important; /* wipe transparency layer */
-    box-shadow: none !important;
-}
-
-.stAlert[data-testid="stAlertSuccess"] > div:first-child {
-    background-color: #10cc52 !important;
-    color: white !important;
-}
-.stAlert[data-testid="stAlertError"] > div:first-child {
-    background-color: #f53d3d !important;
-    color: white !important;
-}
-.stAlert[data-testid="stAlertWarning"] > div:first-child {
-    background-color: #ffc53d !important;
-    color: black !important;
-}
-.stAlert[data-testid="stAlertInfo"] > div:first-child {
-    background-color: #4285f4 !important;
-    color: white !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
