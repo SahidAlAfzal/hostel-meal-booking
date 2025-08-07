@@ -62,31 +62,33 @@ st.markdown("""
 
 st.markdown("""
     <style>
-    /* Make all alert boxes opaque and preserve their default colors */
-    .stAlert div[data-testid="stMarkdownContainer"] {
-        background-color: inherit !important; /* Use the original color */
-    }
+    /* INFO alert - blue */
+        .st-at {
+            background-color: rgba(0, 123, 255, 0.8) !important;
+            border: 1px solid #004085;
+            color: white;
+        }
 
-    /* Info alert */
-    .stAlert[data-icon="info"] {
-        background-color: rgba(0, 123, 255, 1) !important;
-    }
+        /* SUCCESS alert - green */
+        .st-el {
+            background-color: rgba(40, 167, 69, 0.8) !important;
+            border: 1px solid #155724;
+            color: white;
+        }
 
-    /* Success alert */
-    .stAlert[data-icon="check-circle"] {
-        background-color: rgba(40, 167, 69, 1) !important;
-    }
+        /* WARNING alert - yellow */
+        .st-fz {
+            background-color: rgba(255, 193, 7, 0.75) !important;
+            border: 1px solid #856404;
+            color: black;
+        }
 
-    /* Warning alert */
-    .stAlert[data-icon="triangle"] {
-        background-color: rgba(255, 193, 7, 1) !important;
-        color: black !important;
-    }
-
-    /* Error alert */
-    .stAlert[data-icon="x-circle"] {
-        background-color: rgba(220, 53, 69, 1) !important;
-    }
+        /* ERROR alert - red */
+        .st-dx {
+            background-color: rgba(220, 53, 69, 0.8) !important;
+            border: 1px solid #721c24;
+            color: white;;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -406,7 +408,7 @@ def get_dinner_option(meal_date):
 
 def post_notice(message, username):
     """Posts a new notice to the notice board."""
-    if not message or not username:
+    if message == "" or not username:
         st.warning("Notice cannot be empty.")
         return
     execute_query("INSERT INTO notices (notice, posted_by) VALUES (%s, %s)", (message, username))
