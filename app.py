@@ -50,66 +50,6 @@ st.markdown("""
 
 
 
-
-st.markdown("""
-    <style>
-    /* Outer box of alert */
-    .stAlert {
-        border-radius: 12px !important;
-        border: 1px solid black !important;
-        background: none !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
-    }
-
-    /* Inner colored part that shows background — this is where the transparency lives */
-    .stAlert div[data-testid="stMarkdownContainer"] {
-        background-color: #fff !important;  /* Replace #fff with your solid color */
-        opacity: 1 !important;
-        backdrop-filter: none !important;
-        background-image: none !important;
-        color: black !important;
-        border-radius: 12px !important;
-        padding: 1rem;
-    }
-
-    /* Specific solid background colors for each alert type */
-
-    .stAlert[data-testid="stAlert-success"] div[data-testid="stMarkdownContainer"] {
-        background-color: #4CAF50 !important;  /* green */
-    }
-
-    .stAlert[data-testid="stAlert-info"] div[data-testid="stMarkdownContainer"] {
-        background-color: #2196F3 !important;  /* blue */
-    }
-
-    .stAlert[data-testid="stAlert-warning"] div[data-testid="stMarkdownContainer"] {
-        background-color: #FFC107 !important;  /* amber */
-    }
-
-    .stAlert[data-testid="stAlert-error"] div[data-testid="stMarkdownContainer"] {
-        background-color: #F44336 !important;  /* red */
-    }
-    
-    /* Make all alert boxes fully opaque and styled */
-div[data-testid="stNotificationContent"] {
-  background-color: rgba(255, 255, 255, 1) !important; /* Or any solid color */
-  border: 1px solid black;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-}
-
-/* Remove transparency from container if any */
-div[data-testid="stNotification"] {
-  background-color: rgba(255, 255, 255, 1) !important;
-  border: none;
-  box-shadow: none;
-}
-    </style>
-""", unsafe_allow_html=True)
-
-
 #-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
