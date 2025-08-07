@@ -49,6 +49,31 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+st.markdown("""
+    <style>
+        /* Success box: green background */
+        .stAlert[data-testid="stAlert-success"] {
+            background-color: rgba(56, 142, 60, 1) !important;
+        }
+
+        /* Info box: blue background */
+        .stAlert[data-testid="stAlert-info"] {
+            background-color: rgba(2, 136, 209, 1) !important;
+        }
+
+        /* Warning box: amber background */
+        .stAlert[data-testid="stAlert-warning"] {
+            background-color: rgba(251, 192, 45, 1) !important;
+        }
+
+        /* Error box: red background */
+        .stAlert[data-testid="stAlert-error"] {
+            background-color: rgba(211, 47, 47, 1) !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+
 #-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
