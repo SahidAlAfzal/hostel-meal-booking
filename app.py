@@ -56,28 +56,30 @@ st.markdown("""
     border-radius: 12px !important;  /* Rounded corners */
     border: 1px solid black !important;  /* Thin black outline */
 }
-  /* First alert (info) */
-    div[role="alert"]:nth-of-type(1) {
-        background-color: rgba(0, 123, 255, 1); /* info-blue */
-    }
-
-    /* Second alert (success) */
-    div[role="alert"]:nth-of-type(2) {
-        background-color: rgba(40, 167, 69, 1); /* success-green */
-    }
-
-    /* Third alert (warning) */
-    div[role="alert"]:nth-of-type(3) {
-        background-color: rgba(255, 193, 7, 1); /* warning-yellow */
-        color: black;
-    }
-
-    /* Fourth alert (error) */
-    div[role="alert"]:nth-of-type(4) {
-        background-color: rgba(220, 53, 69, 1); /* error-red */
-    }
 </style>
 """, unsafe_allow_html=True)
+
+def opaque_alert(message, type='info'):
+    background_colors = {
+        'info': 'rgba(0, 123, 255, 1)',     # Solid blue
+        'success': 'rgba(40, 167, 69, 1)',  # Solid green
+        'warning': 'rgba(255, 193, 7, 1)',  # Solid yellow
+        'error': 'rgba(220, 53, 69, 1)'     # Solid red
+    }
+
+    bg = background_colors.get(type, 'rgba(0, 123, 255, 1)')
+
+    st.markdown(
+        f"""
+        <div style="
+            background-color: {bg};
+            color: white;
+            padding: 1em;
+        ">
+            {message}
+        </div>
+        """, unsafe_allow_html=True
+    )
 
 
 #-------------------------------------------------------------------------------------
