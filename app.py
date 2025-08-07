@@ -56,25 +56,41 @@ st.markdown("""
     border-radius: 12px !important;  /* Rounded corners */
     border: 1px solid black !important;  /* Thin black outline */
 }
-[data-testid="stAlert"]:has(svg[fill="rgb(43, 187, 88)"]) {
-    background-color: #D4EDDA !important;
-    opacity: 1 !important;
-}
+        /* INFO alert - blue */
+        .st-at {
+            background-color: rgba(0, 123, 255, 1) !important;
+            border: 1px solid #004085;
+            color: white;
+            border-radius: 10px;
+            padding: 16px;
+        }
 
-[data-testid="stAlert"]:has(svg[fill="rgb(28, 131, 225)"]) {
-    background-color: #D1ECF1 !important;
-    opacity: 1 !important;
-}
+        /* SUCCESS alert - green */
+        .st-av {
+            background-color: rgba(40, 167, 69, 1) !important;
+            border: 1px solid #155724;
+            color: white;
+            border-radius: 10px;
+            padding: 16px;
+        }
 
-[data-testid="stAlert"]:has(svg[fill="rgb(255, 170, 0)"]) {
-    background-color: #FFF3CD !important;
-    opacity: 1 !important;
-}
+        /* WARNING alert - yellow */
+        .st-au {
+            background-color: rgba(255, 193, 7, 1) !important;
+            border: 1px solid #856404;
+            color: black;
+            border-radius: 10px;
+            padding: 16px;
+        }
 
-[data-testid="stAlert"]:has(svg[fill="rgb(255, 75, 75)"]) {
-    background-color: #F8D7DA !important;
-    opacity: 1 !important;
-}
+        /* ERROR alert - red */
+        .st-aw {
+            background-color: rgba(220, 53, 69, 1) !important;
+            border: 1px solid #721c24;
+            color: white;
+            border-radius: 10px;
+            padding: 16px;
+        }
 </style>
 """, unsafe_allow_html=True)
 
