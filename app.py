@@ -70,14 +70,14 @@ st.markdown("""
         }
 
         /* SUCCESS alert - green */
-        .st-el {
+        .st-fl {
             background-color: rgba(40, 194, 29, 0.72) !important;
             border: 1px solid #155724;
             color: white;
         }
 
         /* WARNING alert - yellow */
-        .st-fl {
+        .st-el {
             background-color: rgba(255, 193, 7, 0.68) !important;
             border: 1px solid #856404;
             color: white;
