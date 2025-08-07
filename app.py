@@ -56,38 +56,26 @@ st.markdown("""
     border-radius: 12px !important;  /* Rounded corners */
     border: 1px solid black !important;  /* Thin black outline */
 }
-/* INFO box (blue) */
-.st-at  {
-            background-color: rgba(0, 123, 255, 1) !important;
-            border: 1px solid #004085;
-            color: white;
-            border-radius: 10px;
-        }
+  /* First alert (info) */
+    div[role="alert"]:nth-of-type(1) {
+        background-color: rgba(0, 123, 255, 1); /* info-blue */
+    }
 
-        /* SUCCESS box (green) */
-        .st-av {
-            background-color: rgba(40, 167, 69, 1) !important;
-            border: 1px solid #155724;
-            color: white;
-            border-radius: 10px;
-        }
+    /* Second alert (success) */
+    div[role="alert"]:nth-of-type(2) {
+        background-color: rgba(40, 167, 69, 1); /* success-green */
+    }
 
-        /* WARNING box (yellow) */
-        .st-au {
-            background-color: rgba(255, 193, 7, 1) !important;
-            border: 1px solid #856404;
-            color: black;
-            border-radius: 10px;
-        }
+    /* Third alert (warning) */
+    div[role="alert"]:nth-of-type(3) {
+        background-color: rgba(255, 193, 7, 1); /* warning-yellow */
+        color: black;
+    }
 
-        /* ERROR box (red) */
-        .st-aw {
-            background-color: rgba(220, 53, 69, 1) !important;
-            border: 1px solid #721c24;
-            color: white;
-            border-radius: 10px;
-        }
-
+    /* Fourth alert (error) */
+    div[role="alert"]:nth-of-type(4) {
+        background-color: rgba(220, 53, 69, 1); /* error-red */
+    }
 </style>
 """, unsafe_allow_html=True)
 
