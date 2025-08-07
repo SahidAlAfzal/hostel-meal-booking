@@ -43,7 +43,7 @@ from streamlit import config
 st.markdown("""
 <style>
 .stAppHeader {
-    opacity: 0 !important;
+  background-color: transparent !important;
 }
 </style>
 """, unsafe_allow_html=True)
