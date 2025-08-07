@@ -90,6 +90,22 @@ st.markdown("""
     .stAlert[data-testid="stAlert-error"] div[data-testid="stMarkdownContainer"] {
         background-color: #F44336 !important;  /* red */
     }
+    
+    /* Make all alert boxes fully opaque and styled */
+div[data-testid="stNotificationContent"] {
+  background-color: rgba(255, 255, 255, 1) !important; /* Or any solid color */
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Remove transparency from container if any */
+div[data-testid="stNotification"] {
+  background-color: rgba(255, 255, 255, 1) !important;
+  border: none;
+  box-shadow: none;
+}
     </style>
 """, unsafe_allow_html=True)
 
