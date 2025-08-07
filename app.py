@@ -51,6 +51,11 @@ st.markdown("""
 # ---- NEW: Make Streamlit Alerts Opaque ----
 st.markdown("""
 <style>
+ /* Apply to all alert boxes */
+.stAlert {
+    border-radius: 12px !important;  /* Rounded corners */
+    border: 1px solid black !important;  /* Thin black outline */
+}
 /* This targets the inner container of the alert box, which controls the background */
 
 /* Success Alert (Green) */
