@@ -64,14 +64,14 @@ st.markdown("""
     <style>
     /* INFO alert - blue */
         .st-at {
-            background-color: rgba(0, 123, 255, 0.8) !important;
+            background-color: rgba(0, 123, 255, 0.75) !important;
             border: 1px solid #004085;
             color: white;
         }
 
         /* SUCCESS alert - green */
         .st-el {
-            background-color: rgba(40, 167, 69, 0.8) !important;
+            background-color: rgba(40, 167, 69, 0.75) !important;
             border: 1px solid #155724;
             color: white;
         }
@@ -85,7 +85,7 @@ st.markdown("""
 
         /* ERROR alert - red */
         .st-dx {
-            background-color: rgba(220, 53, 69, 0.8) !important;
+            background-color: rgba(220, 53, 69, 0.75) !important;
             border: 1px solid #721c24;
             color: white;;
         }
