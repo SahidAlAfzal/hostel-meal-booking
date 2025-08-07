@@ -85,7 +85,7 @@ st.markdown("""
 
         /* ERROR alert - red */
         .st-dx {
-            background-color: rgba(220, 53, 69, 0.72) !important;
+            background-color: rgba(220, 53, 69, 0.76) !important;
             border: 1px solid #721c24;
             color: white;;
         }
