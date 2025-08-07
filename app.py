@@ -80,7 +80,7 @@ st.markdown("""
         .st-fz {
             background-color: rgba(255, 193, 7, 0.75) !important;
             border: 1px solid #856404;
-            color: black;
+            color: white;
         }
 
         /* ERROR alert - red */
