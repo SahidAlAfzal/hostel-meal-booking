@@ -50,33 +50,46 @@ st.markdown("""
 
 
 
+
 st.markdown("""
     <style>
-        /* Apply to all alert boxes */
-        .stAlert {
-            border-radius: 12px !important;
-            border: 1px solid black !important;
-            background-image: none !important;  /* Remove any gradient/overlay */
-            box-shadow: none !important;  /* Optional: remove inner shadow */
-        }
+    /* Outer box of alert */
+    .stAlert {
+        border-radius: 12px !important;
+        border: 1px solid black !important;
+        background: none !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
 
-        /* Make each type fully opaque with solid background */
+    /* Inner colored part that shows background — this is where the transparency lives */
+    .stAlert div[data-testid="stMarkdownContainer"] {
+        background-color: #fff !important;  /* Replace #fff with your solid color */
+        opacity: 1 !important;
+        backdrop-filter: none !important;
+        background-image: none !important;
+        color: black !important;
+        border-radius: 12px !important;
+        padding: 1rem;
+    }
 
-        .stAlert[data-testid="stAlert-success"] {
-            background-color: #388E3C !important;  /* Solid green */
-        }
+    /* Specific solid background colors for each alert type */
 
-        .stAlert[data-testid="stAlert-info"] {
-            background-color: #0288D1 !important;  /* Solid blue */
-        }
+    .stAlert[data-testid="stAlert-success"] div[data-testid="stMarkdownContainer"] {
+        background-color: #4CAF50 !important;  /* green */
+    }
 
-        .stAlert[data-testid="stAlert-warning"] {
-            background-color: #FBC02D !important;  /* Solid amber */
-        }
+    .stAlert[data-testid="stAlert-info"] div[data-testid="stMarkdownContainer"] {
+        background-color: #2196F3 !important;  /* blue */
+    }
 
-        .stAlert[data-testid="stAlert-error"] {
-            background-color: #D32F2F !important;  /* Solid red */
-        }
+    .stAlert[data-testid="stAlert-warning"] div[data-testid="stMarkdownContainer"] {
+        background-color: #FFC107 !important;  /* amber */
+    }
+
+    .stAlert[data-testid="stAlert-error"] div[data-testid="stMarkdownContainer"] {
+        background-color: #F44336 !important;  /* red */
+    }
     </style>
 """, unsafe_allow_html=True)
 
