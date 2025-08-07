@@ -78,14 +78,14 @@ st.markdown("""
 
         /* WARNING alert - yellow */
         .st-fz {
-            background-color: rgba(255, 193, 7, 0.72) !important;
+            background-color: rgba(255, 193, 7, 0.82) !important;
             border: 1px solid #856404;
             color: white;
         }
 
         /* ERROR alert - red */
         .st-dx {
-            background-color: rgba(220, 53, 69, 0.9) !important;
+            background-color: rgba(220, 53, 69, 0.72) !important;
             border: 1px solid #721c24;
             color: white;;
         }
