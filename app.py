@@ -56,41 +56,38 @@ st.markdown("""
     border-radius: 12px !important;  /* Rounded corners */
     border: 1px solid black !important;  /* Thin black outline */
 }
-        /* INFO alert - blue */
-        .st-at {
+/* INFO box (blue) */
+.st-at  {
             background-color: rgba(0, 123, 255, 1) !important;
             border: 1px solid #004085;
             color: white;
             border-radius: 10px;
-            padding: 16px;
         }
 
-        /* SUCCESS alert - green */
+        /* SUCCESS box (green) */
         .st-av {
             background-color: rgba(40, 167, 69, 1) !important;
             border: 1px solid #155724;
             color: white;
             border-radius: 10px;
-            padding: 16px;
         }
 
-        /* WARNING alert - yellow */
+        /* WARNING box (yellow) */
         .st-au {
             background-color: rgba(255, 193, 7, 1) !important;
             border: 1px solid #856404;
             color: black;
             border-radius: 10px;
-            padding: 16px;
         }
 
-        /* ERROR alert - red */
+        /* ERROR box (red) */
         .st-aw {
             background-color: rgba(220, 53, 69, 1) !important;
             border: 1px solid #721c24;
             color: white;
             border-radius: 10px;
-            padding: 16px;
         }
+
 </style>
 """, unsafe_allow_html=True)
 
