@@ -48,6 +48,32 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# ---- NEW: Make Streamlit Alerts Opaque ----
+st.markdown("""
+<style>
+/* This targets the inner container of the alert box, which controls the background */
+
+/* Success Alert (Green) */
+[data-testid="stAlert"]:has(svg[fill="rgb(43, 187, 88)"]) > div:first-child {
+    background-color: #D4EDDA; /* Solid light green */
+}
+
+/* Info Alert (Blue) */
+[data-testid="stAlert"]:has(svg[fill="rgb(28, 131, 225)"]) > div:first-child {
+    background-color: #D1ECF1; /* Solid light blue */
+}
+
+/* Warning Alert (Yellow/Orange) */
+[data-testid="stAlert"]:has(svg[fill="rgb(255, 170, 0)"]) > div:first-child {
+    background-color: #FFF3CD; /* Solid light yellow */
+}
+
+/* Error Alert (Red) */
+[data-testid="stAlert"]:has(svg[fill="rgb(255, 75, 75)"]) > div:first-child {
+    background-color: #F8D7DA; /* Solid light red */
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 #-------------------------------------------------------------------------------------
