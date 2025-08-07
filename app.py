@@ -64,7 +64,7 @@ st.markdown("""
     <style>
     /* INFO alert - blue */
         .st-at {
-            background-color: rgba(0, 123, 255, 0.72) !important;
+            background-color: rgba(95, 169, 237, 0.72) !important;
             border: 1px solid #004085;
             color: white;
         }
