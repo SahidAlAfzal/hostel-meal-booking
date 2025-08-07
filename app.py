@@ -56,26 +56,24 @@ st.markdown("""
     border-radius: 12px !important;  /* Rounded corners */
     border: 1px solid black !important;  /* Thin black outline */
 }
-/* This targets the inner container of the alert box, which controls the background */
-
-/* Success Alert (Green) */
-[data-testid="stAlert"]:has(svg[fill="rgb(43, 187, 88)"]) > div:first-child {
-    background-color: #D4EDDA; /* Solid light green */
+[data-testid="stAlert"]:has(svg[fill="rgb(43, 187, 88)"]) {
+    background-color: #D4EDDA !important;
+    opacity: 1 !important;
 }
 
-/* Info Alert (Blue) */
-[data-testid="stAlert"]:has(svg[fill="rgb(28, 131, 225)"]) > div:first-child {
-    background-color: #D1ECF1; /* Solid light blue */
+[data-testid="stAlert"]:has(svg[fill="rgb(28, 131, 225)"]) {
+    background-color: #D1ECF1 !important;
+    opacity: 1 !important;
 }
 
-/* Warning Alert (Yellow/Orange) */
-[data-testid="stAlert"]:has(svg[fill="rgb(255, 170, 0)"]) > div:first-child {
-    background-color: #FFF3CD; /* Solid light yellow */
+[data-testid="stAlert"]:has(svg[fill="rgb(255, 170, 0)"]) {
+    background-color: #FFF3CD !important;
+    opacity: 1 !important;
 }
 
-/* Error Alert (Red) */
-[data-testid="stAlert"]:has(svg[fill="rgb(255, 75, 75)"]) > div:first-child {
-    background-color: #F8D7DA; /* Solid light red */
+[data-testid="stAlert"]:has(svg[fill="rgb(255, 75, 75)"]) {
+    background-color: #F8D7DA !important;
+    opacity: 1 !important;
 }
 </style>
 """, unsafe_allow_html=True)
