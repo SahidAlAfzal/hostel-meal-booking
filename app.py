@@ -59,6 +59,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+
 #-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
