@@ -195,7 +195,6 @@ def query_to_dataframe(query, params=None):
         if conn:
             pool.putconn(conn)
 
-
 # ---- Initialize database tables ----
 @st.cache_resource
 def initialize_tables():
