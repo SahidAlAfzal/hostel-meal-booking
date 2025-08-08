@@ -11,7 +11,6 @@ from openpyxl import Workbook
 import random
 from dotenv import load_dotenv
 import base64
-from audiorecorder import audiorecorder
 
 # ---- Custom Sidebar Background Image ----
 # A function to encode your image to a Base64 string
