@@ -3,5 +3,4 @@ psycopg2-binary
 pandas
 python-dotenv
 openpyxl
-streamlit-audiorecorder
 matplotlib
