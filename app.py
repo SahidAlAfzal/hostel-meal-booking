@@ -59,46 +59,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
-st.markdown("""
-    <style>
-    /* INFO alert - blue */
-        .st-at {
-            background-color: rgba(95, 169, 237, 0.72) !important;
-            border: 1px solid #004085;
-            color: white;
-        }
-
-        /* SUCCESS alert - green */
-        .st-fl {
-            background-color: rgba(40, 194, 29, 0) !important;
-            border: 1px solid #155724;
-            color: white;
-        }
-        /* SUCCESS alert - green */
-        .st-en {
-            background-color: rgba(40, 194, 29, 0.72) !important;
-            border: 1px solid #155724;
-            color: white;
-        }
-
-        /* WARNING alert - yellow */
-        .st-el {
-            background-color: rgba(255, 193, 7, 0.68) !important;
-            border: 1px solid #856404;
-            color: white;
-        }
-
-        /* ERROR alert - red */
-        .st-dx {
-            background-color: rgba(220, 53, 69, 0.72) !important;
-            border: 1px solid #721c24;
-            color: white;;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-
 #-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
