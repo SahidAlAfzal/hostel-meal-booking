@@ -75,6 +75,12 @@ st.markdown("""
             border: 1px solid #155724;
             color: white;
         }
+        /* SUCCESS alert - green */
+        .st-en {
+            background-color: rgba(40, 194, 29, 0.72) !important;
+            border: 1px solid #155724;
+            color: white;
+        }
 
         /* WARNING alert - yellow */
         .st-el {
