@@ -437,6 +437,7 @@ def get_notices():
 
 
 
+
 # ---------------------- STREAMLIT UI ----------------------
 st.set_page_config(page_title="Hostel Meal System", layout="wide")
 st.title("Hostel Meal Booking System")
