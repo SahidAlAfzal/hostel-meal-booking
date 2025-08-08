@@ -154,6 +154,9 @@ DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
 DB_PASS = os.getenv("DB_PASS")
 DB_PORT = os.getenv("DB_PORT")
+SUPERADMIN_USER = os.getenv("SUPERADMIN_USER")
+SUPERADMIN_ROOM = os.getenv("SUPERADMIN_ROOM")
+SUPERADMIN_PIN= os.getenv("SUPERADMIN_PIN")
 
 
 # ---- Database Connection Pool ----
@@ -377,7 +380,7 @@ def book_meal(user_id, lunch, dinner, dinner_choice, meal_date):
 
 def validate_convenor(username, room, pin):
     """Validates convenor credentials, including a hardcoded superadmin."""
-    if username == os.getenv("SUPERADMIN_USER") and room == os.getenv("SUPERADMIN_ROOM") and pin == os.getenv("SUPERADMIN_PIN"):
+    if username == SUPERADMIN_USER and room == SUPERADMIN_ROOM and pin == SUPERADMIN_PIN:
         return "superadmin"
     
     row = execute_query(
