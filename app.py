@@ -11,6 +11,7 @@ from openpyxl import Workbook
 import random
 from dotenv import load_dotenv
 import base64
+from audiorecorder import audiorecorder
 
 # ---- Custom Sidebar Background Image ----
 # A function to encode your image to a Base64 string
@@ -235,6 +236,15 @@ def initialize_tables():
             posted_by TEXT NOT NULL REFERENCES boarders(username) ON DELETE CASCADE
         )
     ''')
+    execute_query('''
+        CREATE TABLE IF NOT EXISTS audio_notices (
+            id SERIAL PRIMARY KEY,
+            notice_date DATE DEFAULT CURRENT_DATE,
+            audio_data BYTEA NOT NULL,
+            posted_by TEXT NOT NULL REFERENCES boarders(username) ON DELETE CASCADE
+        )
+    ''')
+
 
 # Call only once at the start of the app
 initialize_tables()
@@ -395,7 +405,26 @@ def get_notices():
     """
     return execute_query(query, fetch='all') or []
 
+def post_audio_notice(audio_bytes, username):
+    """Saves a new audio notice to the database."""
+    if audio_bytes is None or not username:
+        st.warning("Audio notice cannot be empty.")
+        return
+    
+    execute_query("INSERT INTO audio_notices (audio_data, posted_by) VALUES (%s, %s)", (audio_bytes, username))
+    st.success("Audio notice has been posted successfully!")
 
+def get_audio_notices():
+    """Retrieves the 5 most recent audio notices from the last day."""
+    query = """
+        SELECT an.audio_data, b.name, an.notice_date
+        FROM audio_notices an
+        JOIN boarders b ON an.posted_by = b.username
+        WHERE an.notice_date >= CURRENT_DATE - INTERVAL '1 day'
+        ORDER BY an.notice_date DESC, an.id DESC
+        LIMIT 5;
+    """
+    return execute_query(query, fetch='all') or []
 
 
 # ---------------------- STREAMLIT UI ----------------------
@@ -419,7 +448,17 @@ if menu == "Home":
                 st.caption(f"— {author} on {n_date.strftime('%B %d, %Y')}")
         else:
             st.info("No recent notices.")
+        
+        st.divider()
+        st.subheader("Audio Notices")
+        audio_notices = get_audio_notices()
 
+        if audio_notices:
+            for audio_data, author, n_date in audio_notices:
+                st.audio(audio_data, format='audio/wav')
+                st.caption(f"Audio notice from {author} on {n_date.strftime('%B %d, %Y')}")
+            else:
+                st.info("No recent audio notices.")
 
 
     st.divider()
@@ -597,6 +636,13 @@ elif menu == "Admin Panel":
                 if post_button and message:
                     # FIX: Use the username stored in session state
                     post_notice(message, st.session_state.admin_username)
+            st.subheader("Post an Audio Notice")
+            audio_bytes = audiorecorder("Click to record", "Recording...")
+    
+            if audio_bytes:
+                st.audio(audio_bytes, format="audio/wav")
+            if st.button("Post Audio Notice"):
+                post_audio_notice(audio_bytes, st.session_state.admin_username)
 
 
 #-----------------------Forgot PIN--------------------------
