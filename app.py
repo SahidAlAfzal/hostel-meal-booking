@@ -380,7 +380,7 @@ def book_meal(user_id, lunch, dinner, dinner_choice, meal_date):
 
 def validate_convenor(username, room, pin):
     """Validates convenor credentials, including a hardcoded superadmin."""
-    if username.strip().lower() == SUPERADMIN_USER.strip().lower() and room.strip() == SUPERADMIN_ROOM.strip() and pin.strip() == SUPERADMIN_PIN.strip():
+    if username == SUPERADMIN_USER and room == SUPERADMIN_ROOM and pin == SUPERADMIN_PIN:
         return "superadmin"
     
     row = execute_query(
