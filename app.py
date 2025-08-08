@@ -443,6 +443,7 @@ st.title("Hostel Meal Booking System")
 
 menu = st.sidebar.selectbox("Menu", ["Home", "Register", "Book Meal", "Admin Panel","Reset PIN"])
 
+
 #--------------------------HOME PAGE---------------------------
 if menu == "Home":
     st.header("Old PG Boys' Hostel")
