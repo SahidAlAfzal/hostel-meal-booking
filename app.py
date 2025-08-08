@@ -71,7 +71,7 @@ st.markdown("""
 
         /* SUCCESS alert - green */
         .st-fl {
-            background-color: rgba(40, 194, 29, 0.72) !important;
+            background-color: rgba(40, 194, 29, 0) !important;
             border: 1px solid #155724;
             color: white;
         }
