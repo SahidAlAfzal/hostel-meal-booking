@@ -453,6 +453,9 @@ elif menu == "Register":
                 st.warning("PIN must be exactly 4 digits.")
             else:
                 register_user(name.strip(), room.strip(), username.strip(), pin.strip())
+    
+    for _ in range(20):
+        st.write("")
 
 #--------------------------------Book Meal----------------------------------------
 elif menu == "Book Meal":
@@ -497,7 +500,10 @@ elif menu == "Book Meal":
                             else:
                                 st.error("Invalid PIN. Please try again.")
             elif room.strip():
-                st.error("No boarders found for this room. Please register first or check the room number.")
+                st.error("No boarders found for this room. Please register first or check the room number.")           
+    
+    for _ in range(20):
+        st.write("")
 
 #-----------------------------------ADMIN PANEL----------------------------------
 elif menu == "Admin Panel":
@@ -516,6 +522,8 @@ elif menu == "Admin Panel":
             pin = st.text_input("Admin Password", type="password")
             
             login_button = st.form_submit_button("Login")
+            for _ in range(20):
+                st.write("")
             if login_button:
                 role = validate_convenor(username, room, pin)
                 if role:
