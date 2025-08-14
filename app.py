@@ -454,7 +454,7 @@ elif menu == "Register":
             else:
                 register_user(name.strip(), room.strip(), username.strip(), pin.strip())
     
-    for _ in range(20):
+    for _ in range(18):
         st.write("")
 
 #--------------------------------Book Meal----------------------------------------
@@ -502,7 +502,7 @@ elif menu == "Book Meal":
             elif room.strip():
                 st.error("No boarders found for this room. Please register first or check the room number.")           
     
-    for _ in range(20):
+    for _ in range(18):
         st.write("")
 
 #-----------------------------------ADMIN PANEL----------------------------------
@@ -522,8 +522,10 @@ elif menu == "Admin Panel":
             pin = st.text_input("Admin Password", type="password")
             
             login_button = st.form_submit_button("Login")
-            for _ in range(20):
+
+            for _ in range(18):
                 st.write("")
+                
             if login_button:
                 role = validate_convenor(username, room, pin)
                 if role:
@@ -617,6 +619,9 @@ elif menu == "Reset PIN":
         room = st.text_input("Room no.")
         new_pin = st.text_input("Enter Your New PIN",type="password",max_chars=4)
         reset_button = st.form_submit_button("Reset PIN")
+
+        for _ in range(18):
+            st.write("")
 
         if reset_button:
             if len(new_pin) != 4 or not new_pin.isdigit():
