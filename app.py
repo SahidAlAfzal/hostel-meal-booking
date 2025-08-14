@@ -59,6 +59,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+    <meta name="viewpoint" content="width=device-width,initial-scale=1.0">
+""",unsafe_allow_html=True)
+
 #-------------------------------------------------------------------------------------
 def pick_random_image(folder="assets"):
     images = [os.path.join(folder, img) for img in os.listdir(folder)
@@ -398,7 +402,7 @@ def get_notices():
 
 
 # ---------------------- STREAMLIT UI ----------------------
-st.set_page_config(page_title="Hostel Meal System", layout="wide")
+st.set_page_config(page_title="Hostel Meal System", layout="centered")
 st.title("Hostel Meal Booking System")
 
 menu = st.sidebar.selectbox("Menu", ["Home", "Register", "Book Meal", "Admin Panel","Reset PIN"])
